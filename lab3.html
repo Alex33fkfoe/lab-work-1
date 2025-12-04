@@ -1,0 +1,630 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа № 3</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .task-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .task-container.active {
+            display: block;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .task-description {
+            background-color: #fff8dc; /* Бежевый фон */
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12; /* Оранжевая полоса */
+            margin-bottom: 15px;
+            font-family: monospace; /* Моноширинный шрифт для кода */
+            white-space: pre-wrap; /* Сохраняем переносы строк */
+        }
+        .task-code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .result-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        p {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа № 3</h1>
+
+        <div class="controls">
+            <button onclick="showTask(1)">Задание 1</button>
+            <button onclick="showTask(2)">Задание 2</button>
+            <button onclick="showTask(3)">Задание 3</button>
+            <button onclick="showTask(4)">Задание 4</button>
+            <button onclick="showTask(5)">Задание 5</button>
+            <button onclick="showTask(6)">Задание 6</button>
+            <button onclick="showTask(7)">Задание 7</button>
+        </div>
+
+        <div id="task1" class="task-container">
+            <h3>Задание 1</h3>
+            <div class="task-description">
+                // Задание 1
+                // Изменить код прилагаемого html документа таким образом
+                // чтобы при введении пользователем в дробном десятичном числе
+                // запятой вместо точки сценарий это исправлял бы.
+                // ( Строка - объект класса String, используйте
+                //   метод замены подстрок)
+            </div>
+            <div class="task-code">
+                function fixDecimalInput(inputStr) {
+    // Заменяем все запятые на точки
+    return inputStr.replace(/,/g, '.');
+}
+
+function runTask1() {
+    const inputElement = document.getElementById('input1');
+    const inputValue = inputElement.value;
+    const correctedValue = fixDecimalInput(inputValue);
+
+    const resultDiv = document.getElementById('result1');
+    resultDiv.innerHTML = `
+        <p><strong>Введённое значение:</strong> ${inputValue}</p>
+        <p><strong>Исправленное значение:</strong> ${correctedValue}</p>
+    `;
+}
+            </div>
+            <p>Введите дробное число (например, 3,14): <input type="text" id="input1" value="3,14159"></p>
+            <button onclick="runTask1()">Исправить</button>
+            <div id="result1" class="result-box"></div>
+        </div>
+
+        <div id="task2" class="task-container">
+            <h3>Задание 2</h3>
+            <div class="task-description">
+                // Задание 2
+                // Создайте html документ со сценарием .
+                // Документ генерирует и отображает таблицу значений sinx, cosx, tgx для
+                // x = 0, 15, 30, 45, 60, 75, 90 градусов.
+            </div>
+            <div class="task-code">
+                function runTask2() {
+    const angles = [0, 15, 30, 45, 60, 75, 90];
+    let tableHTML = '<table><tr><th>Угол (градусы)</th><th>sin(x)</th><th>cos(x)</th><th>tan(x)</th></tr>';
+
+    for (let i = 0; i < angles.length; i++) {
+        const angle = angles[i];
+        const rad = angle * Math.PI / 180; // Преобразование в радианы
+        const sinVal = Math.sin(rad).toFixed(4);
+        const cosVal = Math.cos(rad).toFixed(4);
+        const tanVal = (Math.abs(angle - 90) < 0.0001) ? 'не определён' : Math.tan(rad).toFixed(4); // Обработка tg(90)
+
+        tableHTML += `<tr><td>${angle}</td><td>${sinVal}</td><td>${cosVal}</td><td>${tanVal}</td></tr>`;
+    }
+    tableHTML += '</table>';
+
+    const resultDiv = document.getElementById('result2');
+    resultDiv.innerHTML = tableHTML;
+}
+            </div>
+            <button onclick="runTask2()">Создать таблицу</button>
+            <div id="result2" class="result-box"></div>
+        </div>
+
+        <div id="task3" class="task-container">
+            <h3>Задание 3</h3>
+            <div class="task-description">
+                // Задание 3
+                // Написать функцию, получающую на вход строку с записью двоичного числа
+                // и переводящую её в десятичное число. Примеры с '110011' и '111'
+            </div>
+            <div class="task-code">
+                function binaryToDecimal(binaryStr) {
+    // Проверка на корректность ввода (только 0 и 1)
+    if (!/^[01]+$/.test(binaryStr)) {
+        return "Ошибка: строка содержит недопустимые символы.";
+    }
+    // Используем встроенный метод parseInt с основанием 2
+    return parseInt(binaryStr, 2);
+}
+
+function runTask3() {
+    const test1 = '110011';
+    const test2 = '111';
+    const result1 = binaryToDecimal(test1);
+    const result2 = binaryToDecimal(test2);
+
+    const resultDiv = document.getElementById('result3');
+    resultDiv.innerHTML = `
+        <p><strong>Двоичное:</strong> ${test1} -> <strong>Десятичное:</strong> ${result1}</p>
+        <p><strong>Двоичное:</strong> ${test2} -> <strong>Десятичное:</strong> ${result2}</p>
+    `;
+}
+            </div>
+            <button onclick="runTask3()">Выполнить</button>
+            <div id="result3" class="result-box"></div>
+        </div>
+
+        <div id="task4" class="task-container">
+            <h3>Задание 4</h3>
+            <div class="task-description">
+                // Задание 4
+                // Написать сценарий задающий функцию bisect, которая
+                // получает на вход параметры:
+                //   а. функцию equ - вычисляющую некоторое выражение.
+                //   б.  нижнюю границу a отрезка, содержащего корень функции equ.
+                //   в.  верхнюю границу b отрезка, содержащего корень функции equ.
+                //   г.  eps - допустимая погрешность.
+                // и методом бисекции находит корень функции equ на отрезке
+                //   [a,b] с точностью  eps.
+                // Проверить для
+                //   1. equ = x^2 - cosx,
+                //   2. equ = x^4 + 1.5 - sinx
+                //   a=0, b=1, eps= 0.001
+            </div>
+            <div class="task-code">
+                function bisect(equ, a, b, eps) {
+    let fa = equ(a);
+    let fb = equ(b);
+
+    // Проверка, что корень находится на отрезке
+    if (fa * fb >= 0) {
+        console.error("Функция не меняет знак на концах отрезка [a, b].");
+        return NaN; // или бросить ошибку
+    }
+
+    let c = a;
+    while ((b - a) / 2 > eps) {
+        c = (a + b) / 2;
+        const fc = equ(c);
+
+        if (fc === 0) break; // нашли точный корень
+
+        if (fa * fc < 0) {
+            b = c;
+            fb = fc;
+        } else {
+            a = c;
+            fa = fc;
+        }
+    }
+    return c;
+}
+
+function runTask4() {
+    // Пример 1: x^2 - cos(x)
+    const equ1 = (x) => x * x - Math.cos(x);
+    // Пример 2: x^4 + 1.5 - sin(x)
+    const equ2 = (x) => Math.pow(x, 4) + 1.5 - Math.sin(x);
+
+    const a = 0;
+    const b = 1;
+    const eps = 0.001;
+
+    const root1 = bisect(equ1, a, b, eps);
+    const root2 = bisect(equ2, a, b, eps);
+
+    const resultDiv = document.getElementById('result4');
+    resultDiv.innerHTML = `
+        <p><strong>Функция 1:</strong> f(x) = x^2 - cos(x)</p>
+        <p>&nbsp;&nbsp;Корень на [${a}, ${b}] с точностью ${eps}: <code>${root1 ? root1.toFixed(5) : 'Не найден'}</code></p>
+        <p><strong>Функция 2:</strong> f(x) = x^4 + 1.5 - sin(x)</p>
+        <p>&nbsp;&nbsp;Корень на [${a}, ${b}] с точностью ${eps}: <code>${root2 ? root2.toFixed(5) : 'Не найден'}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask4()">Найти корни</button>
+            <div id="result4" class="result-box"></div>
+        </div>
+
+        <div id="task5" class="task-container">
+            <h3>Задание 5</h3>
+            <div class="task-description">
+                // Задание 5
+                // Имеется массив объектов:
+                // let user = [
+                // { name: "John", age: 30 },
+                // { name: "Bob", age: 21 },
+                // { name: "Anna", age: 19 }
+                // ]
+                // Получите из этого массива объект, где name == "Bob"
+                // и сохраните это в какой-либо переменной.
+            </div>
+            <div class="task-code">
+                function runTask5() {
+    let users = [
+        { name: "John", age: 30 },
+        { name: "Bob", age: 21 },
+        { name: "Anna", age: 19 }
+    ];
+
+    // Используем метод find
+    const bobObject = users.find(user => user.name === "Bob");
+
+    const resultDiv = document.getElementById('result5');
+    resultDiv.innerHTML = `
+        <p><strong>Найденный объект:</strong></p>
+        <pre>${JSON.stringify(bobObject, null, 2)}</pre>
+    `;
+}
+            </div>
+            <button onclick="runTask5()">Найти Bob</button>
+            <div id="result5" class="result-box"></div>
+        </div>
+
+        <div id="task6" class="task-container">
+            <h3>Задание 6</h3>
+            <div class="task-description">
+                // Задание 6
+                // Напишите функцию JavaScript, чтобы получить все значения
+                // свойств (keys) объекта.
+                // let an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+            </div>
+            <div class="task-code">
+                function getKeys(obj) {
+    return Object.keys(obj);
+}
+
+function runTask6() {
+    let an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+    const keys = getKeys(an_obj);
+
+    const resultDiv = document.getElementById('result6');
+    resultDiv.innerHTML = `
+        <p><strong>Объект:</strong> <code>${JSON.stringify(an_obj)}</code></p>
+        <p><strong>Ключи:</strong> <code>[${keys.join(', ')}]</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask6()">Получить ключи</button>
+            <div id="result6" class="result-box"></div>
+        </div>
+
+        <div id="task7" class="task-container">
+            <h3>Задание 7</h3>
+            <div class="task-description">
+                // Задание 7
+                // а. Создайте фукцию которая для каждого числового
+                //    свойства объекта добавит в объект новое свойство
+                //    со значением 	равным десятичному логарифму этого числового
+                //    значения , например log_width, log_height
+                // b.  Создайте фукцию которая  удалит из объекта все его
+                //     нечисловые  свойства
+                //     Результат продемонстрируйте в браузере
+                //     Тестовый объект :
+                //     let menu = {
+                //         width: 200,
+                //         height: 300,
+                //         title: "My menu"
+                //     };
+            </div>
+            <div class="task-code">
+                function addLogProperties(obj) {
+    // Создаём копию объекта, чтобы не мутировать оригинальный
+    const newObj = {...obj};
+    for (let key in newObj) {
+        if (typeof newObj[key] === 'number' && !isNaN(newObj[key]) && newObj[key] > 0) {
+            const logKey = 'log_' + key;
+            newObj[logKey] = Math.log10(newObj[key]);
+        }
+    }
+    return newObj;
+}
+
+function removeNonNumeric(obj) {
+    // Создаём копию объекта, чтобы не мутировать оригинальный
+    const newObj = {};
+    for (let key in obj) {
+        if (typeof obj[key] === 'number' && !isNaN(obj[key])) {
+            newObj[key] = obj[key];
+        }
+    }
+    return newObj;
+}
+
+function runTask7() {
+    let menu = {
+        width: 200,
+        height: 300,
+        title: "My menu"
+    };
+
+    const menuWithLogs = addLogProperties(menu);
+    const menuNumericOnly = removeNonNumeric(menu);
+
+    const resultDiv = document.getElementById('result7');
+    resultDiv.innerHTML = `
+        <p><strong>Исходный объект:</strong></p>
+        <pre>${JSON.stringify(menu, null, 2)}</pre>
+        <p><strong>После добавления логарифмов:</strong></p>
+        <pre>${JSON.stringify(menuWithLogs, null, 2)}</pre>
+        <p><strong>Только числовые свойства:</strong></p>
+        <pre>${JSON.stringify(menuNumericOnly, null, 2)}</pre>
+    `;
+}
+            </div>
+            <button onclick="runTask7()">Выполнить</button>
+            <div id="result7" class="result-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function hideAllTasks() {
+            const containers = document.querySelectorAll('.task-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+        }
+
+        function showTask(taskNumber) {
+            hideAllTasks();
+            const taskElement = document.getElementById('task' + taskNumber);
+            taskElement.classList.add('active');
+            taskElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function runTask1() {
+            const inputElement = document.getElementById('input1');
+            const inputValue = inputElement.value;
+            const correctedValue = inputValue.replace(/,/g, '.');
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.innerHTML = `
+                <p><strong>Введённое значение:</strong> ${inputValue}</p>
+                <p><strong>Исправленное значение:</strong> ${correctedValue}</p>
+            `;
+        }
+
+        function runTask2() {
+            const angles = [0, 15, 30, 45, 60, 75, 90];
+            let tableHTML = '<table><tr><th>Угол (градусы)</th><th>sin(x)</th><th>cos(x)</th><th>tan(x)</th></tr>';
+
+            for (let i = 0; i < angles.length; i++) {
+                const angle = angles[i];
+                const rad = angle * Math.PI / 180;
+                const sinVal = Math.sin(rad).toFixed(4);
+                const cosVal = Math.cos(rad).toFixed(4);
+                const tanVal = (Math.abs(angle - 90) < 0.0001) ? 'не определён' : Math.tan(rad).toFixed(4);
+
+                tableHTML += `<tr><td>${angle}</td><td>${sinVal}</td><td>${cosVal}</td><td>${tanVal}</td></tr>`;
+            }
+            tableHTML += '</table>';
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.innerHTML = tableHTML;
+        }
+
+        function binaryToDecimal(binaryStr) {
+            if (!/^[01]+$/.test(binaryStr)) {
+                return "Ошибка: строка содержит недопустимые символы.";
+            }
+            return parseInt(binaryStr, 2);
+        }
+
+        function runTask3() {
+            const test1 = '110011';
+            const test2 = '111';
+            const result1 = binaryToDecimal(test1);
+            const result2 = binaryToDecimal(test2);
+
+            const resultDiv = document.getElementById('result3');
+            resultDiv.innerHTML = `
+                <p><strong>Двоичное:</strong> ${test1} -> <strong>Десятичное:</strong> ${result1}</p>
+                <p><strong>Двоичное:</strong> ${test2} -> <strong>Десятичное:</strong> ${result2}</p>
+            `;
+        }
+
+        function bisect(equ, a, b, eps) {
+            let fa = equ(a);
+            let fb = equ(b);
+
+            if (fa * fb >= 0) {
+                console.error("Функция не меняет знак на концах отрезка [a, b].");
+                return NaN;
+            }
+
+            let c = a;
+            while ((b - a) / 2 > eps) {
+                c = (a + b) / 2;
+                const fc = equ(c);
+
+                if (fc === 0) break;
+
+                if (fa * fc < 0) {
+                    b = c;
+                    fb = fc;
+                } else {
+                    a = c;
+                    fa = fc;
+                }
+            }
+            return c;
+        }
+
+        function runTask4() {
+            const equ1 = (x) => x * x - Math.cos(x);
+            const equ2 = (x) => Math.pow(x, 4) + 1.5 - Math.sin(x);
+
+            const a = 0;
+            const b = 1;
+            const eps = 0.001;
+
+            const root1 = bisect(equ1, a, b, eps);
+            const root2 = bisect(equ2, a, b, eps);
+
+            const resultDiv = document.getElementById('result4');
+            resultDiv.innerHTML = `
+                <p><strong>Функция 1:</strong> f(x) = x^2 - cos(x)</p>
+                <p>&nbsp;&nbsp;Корень на [${a}, ${b}] с точностью ${eps}: <code>${root1 ? root1.toFixed(5) : 'Не найден'}</code></p>
+                <p><strong>Функция 2:</strong> f(x) = x^4 + 1.5 - sin(x)</p>
+                <p>&nbsp;&nbsp;Корень на [${a}, ${b}] с точностью ${eps}: <code>${root2 ? root2.toFixed(5) : 'Не найден'}</code></p>
+            `;
+        }
+
+        function runTask5() {
+            let users = [
+                { name: "John", age: 30 },
+                { name: "Bob", age: 21 },
+                { name: "Anna", age: 19 }
+            ];
+
+            const bobObject = users.find(user => user.name === "Bob");
+
+            const resultDiv = document.getElementById('result5');
+            resultDiv.innerHTML = `
+                <p><strong>Найденный объект:</strong></p>
+                <pre>${JSON.stringify(bobObject, null, 2)}</pre>
+            `;
+        }
+
+        function getKeys(obj) {
+            return Object.keys(obj);
+        }
+
+        function runTask6() {
+            let an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+            const keys = getKeys(an_obj);
+
+            const resultDiv = document.getElementById('result6');
+            resultDiv.innerHTML = `
+                <p><strong>Объект:</strong> <code>${JSON.stringify(an_obj)}</code></p>
+                <p><strong>Ключи:</strong> <code>[${keys.join(', ')}]</code></p>
+            `;
+        }
+
+        function addLogProperties(obj) {
+            const newObj = {...obj};
+            for (let key in newObj) {
+                if (typeof newObj[key] === 'number' && !isNaN(newObj[key]) && newObj[key] > 0) {
+                    const logKey = 'log_' + key;
+                    newObj[logKey] = Math.log10(newObj[key]);
+                }
+            }
+            return newObj;
+        }
+
+        function removeNonNumeric(obj) {
+            const newObj = {};
+            for (let key in obj) {
+                if (typeof obj[key] === 'number' && !isNaN(obj[key])) {
+                    newObj[key] = obj[key];
+                }
+            }
+            return newObj;
+        }
+
+        function runTask7() {
+            let menu = {
+                width: 200,
+                height: 300,
+                title: "My menu"
+            };
+
+            const menuWithLogs = addLogProperties(menu);
+            const menuNumericOnly = removeNonNumeric(menu);
+
+            const resultDiv = document.getElementById('result7');
+            resultDiv.innerHTML = `
+                <p><strong>Исходный объект:</strong></p>
+                <pre>${JSON.stringify(menu, null, 2)}</pre>
+                <p><strong>После добавления логарифмов:</strong></p>
+                <pre>${JSON.stringify(menuWithLogs, null, 2)}</pre>
+                <p><strong>Только числовые свойства:</strong></p>
+                <pre>${JSON.stringify(menuNumericOnly, null, 2)}</pre>
+            `;
+        }
+    </script>
+</body>
+</html>
+```

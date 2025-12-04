@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работы №1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .button-1 { background-color: #3498db; }
+        .button-2 { background-color: #2ecc71; }
+        .button-3 { background-color: #e74c3c; }
+        .button-4 { background-color: #f39c12; }
+        .button-5 { background-color: #9b59b6; }
+        .button-6 { background-color: #1abc9c; }
+        .button-7 { background-color: #d35400; }
+        .button-8 { background-color: #34495e; }
+        .button-9 { background-color: #7f8c8d; }
+        .button-10 { background-color: #16a085; }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            border-left: 3px solid #3498db;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .instructions {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторная работы №1</h1>
+    
+    <div class="instructions">
+        <p>Нажмите на любую кнопку для выполнения соответствующего задания. Результаты будут отображены ниже.</p>
+    </div>
+    
+    <div class="button-container">
+        <button class="button-1" onclick="task1()">Задание 1</button>
+        <button class="button-2" onclick="task2()">Задание 2</button>
+        <button class="button-3" onclick="task3()">Задание 3</button>
+        <button class="button-4" onclick="task4()">Задание 4</button>
+        <button class="button-5" onclick="task5()">Задание 5</button>
+        <button class="button-6" onclick="task6()">Задание 6</button>
+        <button class="button-7" onclick="task7()">Задание 7</button>
+        <button class="button-8" onclick="task8()">Задание 8</button>
+        <button class="button-9" onclick="task9()">Задание 9</button>
+        <button class="button-10" onclick="task10()">Доп. задание</button>
+    </div>
+    
+    <div id="result" class="result">
+        <p>Результаты выполнения заданий будут отображаться здесь.</p>
+    </div>
+
+    <script>
+        function task1() {
+            let x = 10, y = 15, z = 0;
+            let result;
+            
+            try {
+                result = x + y / z;
+                alert(`Результат выражения x + y/z = ${result}`);
+                showResult(1, `Результат выражения x + y/z = ${result}<br><br>
+                <div class="code-block">
+                let x = 10, y = 15, z = 0;<br>
+                let result = x + y / z;<br>
+                // Результат: ${result}
+                </div>
+                <div class="explanation">
+                При делении на ноль (y/z) получаем Infinity, поэтому результат равен Infinity.
+                </div>`);
+            } catch (error) {
+                showResult(1, `Ошибка: ${error.message}`);
+            }
+        }
+
+        function task2() {
+            let s1 = "123", s2 = "456", s3 = "name";
+            let n = 123;
+            
+            let result1 = s1 + s2;
+            let result2 = n + s2;
+            let result3 = n + s3;
+            
+            showResult(2, `
+            <div class="code-block">
+            let s1 = "123", s2 = "456", s3 = "name";<br>
+            let n = 123;<br><br>
+            s1 + s2 = "${result1}"<br>
+            n + s2 = "${result2}"<br>
+            n + s3 = "${result3}"
+            </div>
+            <div class="explanation">
+            <strong>Объяснение:</strong><br>
+            - s1 + s2: конкатенация строк "123" и "456" дает "123456"<br>
+            - n + s2: число n преобразуется в строку и конкатенируется с s2, получается "123456"<br>
+            - n + s3: число n преобразуется в строку и конкатенируется с s3, получается "123name"
+            </div>`);
+        }
+
+        function task3() {
+            let num1 = 123, num2 = 456;
+            let result = `Результат = ${num1 + num2}`;
+            
+            showResult(3, `
+            <div class="code-block">
+            let num1 = 123, num2 = 456;<br>
+            let result = \`Результат = \${num1 + num2}\`;<br><br>
+            // Результат: "${result}"
+            </div>
+            <div class="explanation">
+            Использованы шаблонные строки (обратные кавычки) для вставки выражения в строку.
+            </div>`);
+        }
+
+        function task4() {
+            let poly = "abcdedcba", test = "teststring";
+            
+            function isPalindrome(str) {
+                return str === str.split('').reverse().join('');
+            }
+            
+            let result1 = isPalindrome(poly);
+            let result2 = isPalindrome(test);
+            
+            showResult(4, `
+            <div class="code-block">
+            let poly = "abcdedcba", test = "teststring";<br><br>
+            function isPalindrome(str) {<br>
+            &nbsp;&nbsp;return str === str.split('').reverse().join('');<br>
+            }<br><br>
+            isPalindrome(poly) = ${result1}<br>
+            isPalindrome(test) = ${result2}
+            </div>
+            <div class="explanation">
+            Строка "abcdedcba" является палиндромом: ${result1}<br>
+            Строка "teststring" не является палиндромом: ${result2}
+            </div>`);
+        }
+
+        function task5() {
+            let a = 15, b = 27, c = 9;
+            let max = a;
+            
+            if (b > max) max = b;
+            if (c > max) max = c;
+            
+            showResult(5, `
+            <div class="code-block">
+            let a = 15, b = 27, c = 9;<br>
+            let max = a;<br><br>
+            if (b > max) max = b;<br>
+            if (c > max) max = c;<br><br>
+            // Наибольшее число: ${max}
+            </div>
+            <div class="explanation">
+            Сравниваем три числа и находим наибольшее.
+            </div>`);
+        }
+
+        function task6() {
+            let sides = [];
+            
+            for (let i = 0; i < 3; i++) {
+                let side = prompt(`Введите сторону треугольника ${i+1}:`);
+                if (side === null) return; // Если пользователь отменил ввод
+                sides.push(parseFloat(side));
+            }
+            
+            if (sides.some(isNaN)) {
+                alert("Пожалуйста, введите числовые значения!");
+                return;
+            }
+            
+            let a = sides[0], b = sides[1], c = sides[2];
+            
+            // Проверяем, существует ли треугольник
+            if (a + b <= c || a + c <= b || b + c <= a) {
+                showResult(6, `
+                <div class="code-block">
+                Стороны: ${a}, ${b}, ${c}<br><br>
+                Треугольник с такими сторонами не существует!
+                </div>`);
+                return;
+            }
+            
+            // Формула Герона
+            let p = (a + b + c) / 2;
+            let area = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+            
+            showResult(6, `
+            <div class="code-block">
+            Стороны: ${a}, ${b}, ${c}<br><br>
+            Полупериметр: p = (a + b + c) / 2 = ${p}<br>
+            Площадь: S = √[p(p-a)(p-b)(p-c)] = ${area.toFixed(2)}
+            </div>
+            <div class="explanation">
+            Для проверки можно ввести стороны 5, 6, 7 (площадь ≈ 14.70) или 10, 12, 25 (треугольник не существует).
+            </div>`);
+        }
+
+        function task7() {
+            let number = parseInt(prompt("Введите число:"));
+            
+            if (isNaN(number)) {
+                alert("Пожалуйста, введите число!");
+                return;
+            }
+            
+            let message;
+            
+            switch (number) {
+                case 1:
+                    message = "Равно 1";
+                    break;
+                case 2:
+                    message = "Равно 2";
+                    break;
+                case 3:
+                    message = "Равно 3";
+                    break;
+                default:
+                    message = "Не равно 1, 2, 3";
+            }
+            
+            showResult(7, `
+            <div class="code-block">
+            let number = ${number};<br><br>
+            switch (number) {<br>
+            &nbsp;&nbsp;case 1: message = "Равно 1"; break;<br>
+            &nbsp;&nbsp;case 2: message = "Равно 2"; break;<br>
+            &nbsp;&nbsp;case 3: message = "Равно 3"; break;<br>
+            &nbsp;&nbsp;default: message = "Не равно 1, 2, 3";<br>
+            }<br><br>
+            // Результат: "${message}"
+            </div>`);
+        }
+
+        function task8() {
+            let dayNumber = parseInt(prompt("Введите число от 1 до 7:"));
+            
+            if (isNaN(dayNumber) || dayNumber < 1 || dayNumber > 7) {
+                alert("Пожалуйста, введите число от 1 до 7!");
+                return;
+            }
+            
+            let dayName;
+            
+            switch (dayNumber) {
+                case 1:
+                    dayName = "Понедельник";
+                    break;
+                case 2:
+                    dayName = "Вторник";
+                    break;
+                case 3:
+                    dayName = "Среда";
+                    break;
+                case 4:
+                    dayName = "Четверг";
+                    break;
+                case 5:
+                    dayName = "Пятница";
+                    break;
+                case 6:
+                    dayName = "Суббота";
+                    break;
+                case 7:
+                    dayName = "Воскресенье";
+                    break;
+                default:
+                    dayName = "Неизвестный день";
+            }
+            
+            showResult(8, `
+            <div class="code-block">
+            let dayNumber = ${dayNumber};<br><br>
+            switch (dayNumber) {<br>
+            &nbsp;&nbsp;case 1: dayName = "Понедельник"; break;<br>
+            &nbsp;&nbsp;case 2: dayName = "Вторник"; break;<br>
+            &nbsp;&nbsp;case 3: dayName = "Среда"; break;<br>
+            &nbsp;&nbsp;case 4: dayName = "Четверг"; break;<br>
+            &nbsp;&nbsp;case 5: dayName = "Пятница"; break;<br>
+            &nbsp;&nbsp;case 6: dayName = "Суббота"; break;<br>
+            &nbsp;&nbsp;case 7: dayName = "Воскресенье"; break;<br>
+            &nbsp;&nbsp;default: dayName = "Неизвестный день";<br>
+            }<br><br>
+            // Результат: "${dayName}"
+            </div>`);
+        }
+
+        function task9() {
+            let userValue = prompt("Введите значение (или оставьте пустым):");
+            let defaultValue = "Значение по умолчанию";
+            
+            // Использование оператора ??
+            let result = userValue ?? defaultValue;
+            
+            showResult(9, `
+            <div class="code-block">
+            let userValue = "${userValue}";<br>
+            let defaultValue = "Значение по умолчанию";<br><br>
+            // Использование оператора ??<br>
+            let result = userValue ?? defaultValue;<br><br>
+            // Результат: "${result}"
+            </div>
+            <div class="explanation">
+            Оператор ?? возвращает левый операнд, если он не null и не undefined, иначе возвращает правый операнд.
+            </div>`);
+        }
+
+        function task10() {
+            let url = prompt("Введите URL для проверки:");
+            
+            if (!url) {
+                alert("Пожалуйста, введите URL!");
+                return;
+            }
+            
+            function isValidURL(url) {
+                // Регулярное выражение для проверки URL
+                const pattern = /^(https?:\/\/)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\.(php|html)$/;
+                return pattern.test(url);
+            }
+            
+            let isValid = isValidURL(url);
+            
+            showResult(10, `
+            <div class="code-block">
+            function isValidURL(url) {<br>
+            &nbsp;&nbsp;const pattern = /^(https?:\\/\\/)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\.(php|html)$/;<br>
+            &nbsp;&nbsp;return pattern.test(url);<br>
+            }<br><br>
+            isValidURL("${url}") = ${isValid}
+            </div>
+            <div class="explanation">
+            <strong>Критерии валидности URL:</strong><br>
+            - Должен начинаться с http:// или https://<br>
+            - Должен заканчиваться на .php или .html<br><br>
+            <strong>Примеры:</strong><br>
+            - http://site.ru/index.php - валидный<br>
+            - http://site.com - не валидный<br>
+            - site.ru/index.php - не валидный
+            </div>`);
+        }
+
+        function showResult(taskNumber, content) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="task-title">Задание ${taskNumber}</div>
+                ${content}
+            `;
+        }
+    </script>
+</body>
+</html>

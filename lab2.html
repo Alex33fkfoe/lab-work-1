@@ -1,0 +1,604 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа № 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .task-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .task-container.active {
+            display: block;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .task-description {
+            background-color: #fff8dc; /* Бежевый фон */
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12; /* Оранжевая полоса */
+            margin-bottom: 15px;
+            font-family: monospace; /* Моноширинный шрифт для кода */
+            white-space: pre-wrap; /* Сохраняем переносы строк */
+        }
+        .task-code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .result-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        p {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа № 2</h1>
+
+        <div class="controls">
+            <button onclick="showTask(1)">Задание 1</button>
+            <button onclick="showTask(2)">Задание 2</button>
+            <button onclick="showTask(3)">Задание 3</button>
+            <button onclick="showTask(4)">Задание 4</button>
+            <button onclick="showTask(5)">Задание 5</button>
+            <button onclick="showTask(6)">Задание 6</button>
+            <button onclick="showTask(7)">Задание 7</button>
+        </div>
+
+        <div id="task1" class="task-container">
+            <h3>Задание 1</h3>
+            <div class="task-description">
+                // Задание 1
+                // Написать скрипт который двумя способами проверит,
+                // делится ли на три число 123456789
+                // - найдёт остаток от деления
+                // - проверит , делится ли на 3 сумма цифр данного числа
+                // Вывести результат
+            </div>
+            <div class="task-code">
+                function runTask1() {
+    const number = 123456789;
+    const remainder = number % 3;
+    const isDivisibleByThreeMethod1 = remainder === 0;
+
+    const numberStr = number.toString();
+    let sumOfDigits = 0;
+    for (let i = 0; i < numberStr.length; i++) {
+        sumOfDigits += parseInt(numberStr[i]);
+    }
+    const isDivisibleByThreeMethod2 = sumOfDigits % 3 === 0;
+
+    const resultDiv = document.getElementById('result1');
+    resultDiv.innerHTML = \`
+        <p><strong>Число:</strong> \${number}</p>
+        <p><strong>Способ 1 (остаток от деления):</strong></p>
+        <p>&nbsp;&nbsp;Остаток от деления \${number} на 3: <code>\${remainder}</code></p>
+        <p>&nbsp;&nbsp;Делится ли на 3: <code>\${isDivisibleByThreeMethod1}</code></p>
+        <p><strong>Способ 2 (сумма цифр):</strong></p>
+        <p>&nbsp;&nbsp;Сумма цифр: <code>\${sumOfDigits}</code></p>
+        <p>&nbsp;&nbsp;Делится ли сумма на 3: <code>\${isDivisibleByThreeMethod2}</code></p>
+        <p><strong>Вывод:</strong> Оба способа показывают, что число \${number} \${isDivisibleByThreeMethod1 ? 'делится' : 'не делится'} на 3.</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask1()">Выполнить</button>
+            <div id="result1" class="result-box"></div>
+        </div>
+
+        <div id="task2" class="task-container">
+            <h3>Задание 2</h3>
+            <div class="task-description">
+                // Задание 2
+                // Написать функцию, которая создаст на html странице список типов заданных элементов
+                // null , 5, "teststring", [1,2,"str1"] , переменной-функции например
+                // let test_function = function(a,b){ return a+b; }
+            </div>
+            <div class="task-code">
+                function runTask2() {
+    const elements = [null, 5, "teststring", [1,2,"str1"], function(a,b){ return a+b; }];
+    const types = elements.map(element => typeof element);
+    const typeList = types.join(', ');
+
+    const resultDiv = document.getElementById('result2');
+    resultDiv.innerHTML = \`
+        <p><strong>Элементы:</strong> [null, 5, "teststring", [1,2,"str1"], function]</p>
+        <p><strong>Их типы:</strong> [\${typeList}]</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask2()">Выполнить</button>
+            <div id="result2" class="result-box"></div>
+        </div>
+
+        <div id="task3" class="task-container">
+            <h3>Задание 3</h3>
+            <div class="task-description">
+                // Задание 3
+                // Познакомиться с методами класса String
+                // toLowerCase(), toUpperCase()
+                // Написать функцию, которая переводит Заглавные буквы в строке в строчные,
+                // а строчные в Заглавные
+                // Протестировать на строке A1b2C3d4E5g6H
+            </div>
+            <div class="task-code">
+                function runTask3() {
+    const originalString = "A1b2C3d4E5g6H";
+    let transformedString = "";
+
+    for (let i = 0; i < originalString.length; i++) {
+        const char = originalString[i];
+        if (char >= 'a' && char <= 'z') {
+            transformedString += char.toUpperCase();
+        } else if (char >= 'A' && char <= 'Z') {
+            transformedString += char.toLowerCase();
+        } else {
+            transformedString += char;
+        }
+    }
+
+    const resultDiv = document.getElementById('result3');
+    resultDiv.innerHTML = \`
+        <p><strong>Исходная строка:</strong> \${originalString}</p>
+        <p><strong>Преобразованная строка:</strong> \${transformedString}</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask3()">Выполнить</button>
+            <div id="result3" class="result-box"></div>
+        </div>
+
+        <div id="task4" class="task-container">
+            <h3>Задание 4</h3>
+            <div class="task-description">
+                // Задание 4
+                // Создать 1-й массив из элементов 2, "name", 4.5, "str1", "str2", 9,["true", "false], 0.5
+                // 2-й -из элементов "name", "str1", "str2", ["true", "false]
+                // Написать функцию, которая получает на вход заданный массив
+                // и возвращает сумму содержащихся в нём числовых элементов
+                // Предусмотреть случай, когда таких элементов нет
+                // Проверить для обоих созданных массивов
+            </div>
+            <div class="task-code">
+                function sumNumeric(arr) {
+    let sum = 0;
+    let hasNumbers = false;
+    for (let i = 0; i < arr.length; i++) {
+        if (typeof arr[i] === 'number' && !isNaN(arr[i])) {
+            sum += arr[i];
+            hasNumbers = true;
+        }
+        if (Array.isArray(arr[i])) {
+            const nestedSum = sumNumeric(arr[i]);
+            if (nestedSum !== 0) {
+                 hasNumbers = true;
+                 sum += nestedSum;
+            }
+        }
+    }
+    if (!hasNumbers) {
+        return "В массиве нет числовых элементов.";
+    }
+    return sum;
+}
+
+function runTask4() {
+    const array1 = [2, "name", 4.5, "str1", "str2", 9, ["true", "false"], 0.5];
+    const array2 = ["name", "str1", "str2", ["true", "false"]];
+
+    const sum1 = sumNumeric(array1);
+    const sum2 = sumNumeric(array2);
+
+    const resultDiv = document.getElementById('result4');
+    resultDiv.innerHTML = \`
+        <p><strong>Массив 1:</strong> [\${array1.join(', ')}]</p>
+        <p><strong>Сумма чисел:</strong> \${sum1}</p>
+        <p><strong>Массив 2:</strong> [\${array2.join(', ')}]</p>
+        <p><strong>Сумма чисел:</strong> \${sum2}</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask4()">Выполнить</button>
+            <div id="result4" class="result-box"></div>
+        </div>
+
+        <div id="task5" class="task-container">
+            <h3>Задание 5</h3>
+            <div class="task-description">
+                // Задание 5
+                // Написать функцию, проверяющую, что заданное число является простым.
+                // Написать вторую функцию , которая с помощью первой найдёт все простые чиcла в
+                // заданном интервале от 1 до 100
+            </div>
+            <div class="task-code">
+                function isPrime(num) {
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+    if (num % 2 === 0 || num % 3 === 0) return false;
+
+    for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+    }
+    return true;
+}
+
+function findPrimesInRange(start, end) {
+    const primes = [];
+    for (let i = start; i <= end; i++) {
+        if (isPrime(i)) {
+            primes.push(i);
+        }
+    }
+    return primes;
+}
+
+function runTask5() {
+    const numberToCheck = 17;
+    const isNumPrime = isPrime(numberToCheck);
+    const primesUpTo100 = findPrimesInRange(1, 100);
+
+    const resultDiv = document.getElementById('result5');
+    resultDiv.innerHTML = \`
+        <p><strong>Число \${numberToCheck} простое:</strong> \${isNumPrime}</p>
+        <p><strong>Простые числа от 1 до 100:</strong> [\${primesUpTo100.join(', ')}]</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask5()">Выполнить</button>
+            <div id="result5" class="result-box"></div>
+        </div>
+
+        <div id="task6" class="task-container">
+            <h3>Задание 6</h3>
+            <div class="task-description">
+                // Задание 6
+                // Изучить тип данных Array как класс, методы этого класса, метод sort
+                // Задать функцию, упорядочивающую массивы
+                // протестировать с массивами
+                // [32, 7,90, -4, 15, 900, 64]
+                // ['HTML', 'RUBY', 'CSS', 'Python', 'C++']
+            </div>
+            <div class="task-code">
+                function sortArray(arr) {
+    const hasNumbers = arr.some(item => typeof item === 'number');
+    const hasStrings = arr.some(item => typeof item === 'string');
+
+    if (hasNumbers && !hasStrings) {
+        return arr.slice().sort((a, b) => a - b);
+    } else if (hasStrings && !hasNumbers) {
+        return arr.slice().sort((a, b) => a.localeCompare(b));
+    } else {
+         return arr.slice().sort((a, b) => String(a).localeCompare(String(b)));
+    }
+}
+
+function runTask6() {
+    const arrayNum = [32, 7, 90, -4, 15, 900, 64];
+    const arrayStr = ['HTML', 'RUBY', 'CSS', 'Python', 'C++'];
+
+    const sortedNum = sortArray(arrayNum);
+    const sortedStr = sortArray(arrayStr);
+
+    const resultDiv = document.getElementById('result6');
+    resultDiv.innerHTML = \`
+        <p><strong>Исходный числовой массив:</strong> [\${arrayNum.join(', ')}]</p>
+        <p><strong>Отсортированный:</strong> [\${sortedNum.join(', ')}]</p>
+        <p><strong>Исходный строковый массив:</strong> [\${arrayStr.join(', ')}]</p>
+        <p><strong>Отсортированный:</strong> [\${sortedStr.join(', ')}]</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask6()">Выполнить</button>
+            <div id="result6" class="result-box"></div>
+        </div>
+
+        <div id="task7" class="task-container">
+            <h3>Задание 7</h3>
+            <div class="task-description">
+                // Задание 7
+                // Изучить класс Date
+                // С помощью этого класса написать функцию которая вернёт
+                // день недели через который будет через 5 дней, через 177 дней
+            </div>
+            <div class="task-code">
+                function getDayOfWeekInFuture(daysToAdd) {
+    const today = new Date();
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + daysToAdd);
+
+    const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+    return daysOfWeek[futureDate.getDay()];
+}
+
+function runTask7() {
+    const dayIn5Days = getDayOfWeekInFuture(5);
+    const dayIn177Days = getDayOfWeekInFuture(177);
+
+    const resultDiv = document.getElementById('result7');
+    resultDiv.innerHTML = \`
+        <p><strong>Через 5 дней будет:</strong> \${dayIn5Days}</p>
+        <p><strong>Через 177 дней будет:</strong> \${dayIn177Days}</p>
+    \`;
+}
+            </div>
+            <button onclick="runTask7()">Выполнить</button>
+            <div id="result7" class="result-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function hideAllTasks() {
+            const containers = document.querySelectorAll('.task-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+        }
+
+        function showTask(taskNumber) {
+            hideAllTasks();
+            const taskElement = document.getElementById('task' + taskNumber);
+            taskElement.classList.add('active');
+            taskElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function runTask1() {
+            const number = 123456789;
+            const remainder = number % 3;
+            const isDivisibleByThreeMethod1 = remainder === 0;
+
+            const numberStr = number.toString();
+            let sumOfDigits = 0;
+            for (let i = 0; i < numberStr.length; i++) {
+                sumOfDigits += parseInt(numberStr[i]);
+            }
+            const isDivisibleByThreeMethod2 = sumOfDigits % 3 === 0;
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.innerHTML = `
+                <p><strong>Число:</strong> ${number}</p>
+                <p><strong>Способ 1 (остаток от деления):</strong></p>
+                <p>&nbsp;&nbsp;Остаток от деления ${number} на 3: <code>${remainder}</code></p>
+                <p>&nbsp;&nbsp;Делится ли на 3: <code>${isDivisibleByThreeMethod1}</code></p>
+                <p><strong>Способ 2 (сумма цифр):</strong></p>
+                <p>&nbsp;&nbsp;Сумма цифр: <code>${sumOfDigits}</code></p>
+                <p>&nbsp;&nbsp;Делится ли сумма на 3: <code>${isDivisibleByThreeMethod2}</code></p>
+                <p><strong>Вывод:</strong> Оба способа показывают, что число ${number} ${isDivisibleByThreeMethod1 ? 'делится' : 'не делится'} на 3.</p>
+            `;
+        }
+
+        function runTask2() {
+            const elements = [null, 5, "teststring", [1,2,"str1"], function(a,b){ return a+b; }];
+            const types = elements.map(element => typeof element);
+            const typeList = types.join(', ');
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.innerHTML = `
+                <p><strong>Элементы:</strong> [null, 5, "teststring", [1,2,"str1"], function]</p>
+                <p><strong>Их типы:</strong> [${typeList}]</p>
+            `;
+        }
+
+        function runTask3() {
+            const originalString = "A1b2C3d4E5g6H";
+            let transformedString = "";
+
+            for (let i = 0; i < originalString.length; i++) {
+                const char = originalString[i];
+                if (char >= 'a' && char <= 'z') {
+                    transformedString += char.toUpperCase();
+                } else if (char >= 'A' && char <= 'Z') {
+                    transformedString += char.toLowerCase();
+                } else {
+                    transformedString += char;
+                }
+            }
+
+            const resultDiv = document.getElementById('result3');
+            resultDiv.innerHTML = `
+                <p><strong>Исходная строка:</strong> ${originalString}</p>
+                <p><strong>Преобразованная строка:</strong> ${transformedString}</p>
+            `;
+        }
+
+        function sumNumeric(arr) {
+    let sum = 0;
+    let hasNumbers = false;
+
+    for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+
+        if (typeof item === 'number' && !isNaN(item)) {
+            sum += item;
+            hasNumbers = true;
+        } else if (Array.isArray(item)) {
+            // Рекурсивный вызов
+            const nestedResult = sumNumeric(item);
+            // Проверяем, не строка ли это (ошибка)
+            if (typeof nestedResult === 'string') {
+                // Нет чисел во вложенном массиве — ничего не делаем
+                continue;
+            } else {
+                // Есть числа во вложенном массиве
+                hasNumbers = true;
+                sum += nestedResult;
+            }
+        }
+    }
+
+    if (!hasNumbers) {
+        return "В массиве нет числовых элементов.";
+    }
+    return sum;
+}
+
+        function runTask4() {
+            const array1 = [2, "name", 4.5, "str1", "str2", 9, ["true", "false"], 0.5];
+            const array2 = ["name", "str1", "str2", ["true", "false"]];
+
+            const sum1 = sumNumeric(array1);
+            const sum2 = sumNumeric(array2);
+
+            const resultDiv = document.getElementById('result4');
+            resultDiv.innerHTML = `
+                <p><strong>Массив 1:</strong> [${array1.join(', ')}]</p>
+                <p><strong>Сумма чисел:</strong> ${sum1}</p>
+                <p><strong>Массив 2:</strong> [${array2.join(', ')}]</p>
+                <p><strong>Сумма чисел:</strong> ${sum2}</p>
+            `;
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+
+            for (let i = 5; i * i <= num; i += 6) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+            }
+            return true;
+        }
+
+        function findPrimesInRange(start, end) {
+            const primes = [];
+            for (let i = start; i <= end; i++) {
+                if (isPrime(i)) {
+                    primes.push(i);
+                }
+            }
+            return primes;
+        }
+
+        function runTask5() {
+            const numberToCheck = 17;
+            const isNumPrime = isPrime(numberToCheck);
+            const primesUpTo100 = findPrimesInRange(1, 100);
+
+            const resultDiv = document.getElementById('result5');
+            resultDiv.innerHTML = `
+                <p><strong>Число ${numberToCheck} простое:</strong> ${isNumPrime}</p>
+                <p><strong>Простые числа от 1 до 100:</strong> [${primesUpTo100.join(', ')}]</p>
+            `;
+        }
+
+        function sortArray(arr) {
+            const hasNumbers = arr.some(item => typeof item === 'number');
+            const hasStrings = arr.some(item => typeof item === 'string');
+
+            if (hasNumbers && !hasStrings) {
+                return arr.slice().sort((a, b) => a - b);
+            } else if (hasStrings && !hasNumbers) {
+                return arr.slice().sort((a, b) => a.localeCompare(b));
+            } else {
+                 return arr.slice().sort((a, b) => String(a).localeCompare(String(b)));
+            }
+        }
+
+        function runTask6() {
+            const arrayNum = [32, 7, 90, -4, 15, 900, 64];
+            const arrayStr = ['HTML', 'RUBY', 'CSS', 'Python', 'C++'];
+
+            const sortedNum = sortArray(arrayNum);
+            const sortedStr = sortArray(arrayStr);
+
+            const resultDiv = document.getElementById('result6');
+            resultDiv.innerHTML = `
+                <p><strong>Исходный числовой массив:</strong> [${arrayNum.join(', ')}]</p>
+                <p><strong>Отсортированный:</strong> [${sortedNum.join(', ')}]</p>
+                <p><strong>Исходный строковый массив:</strong> [${arrayStr.join(', ')}]</p>
+                <p><strong>Отсортированный:</strong> [${sortedStr.join(', ')}]</p>
+            `;
+        }
+
+        function getDayOfWeekInFuture(daysToAdd) {
+            const today = new Date();
+            const futureDate = new Date(today);
+            futureDate.setDate(today.getDate() + daysToAdd);
+
+            const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            return daysOfWeek[futureDate.getDay()];
+        }
+
+        function runTask7() {
+            const dayIn5Days = getDayOfWeekInFuture(5);
+            const dayIn177Days = getDayOfWeekInFuture(177);
+
+            const resultDiv = document.getElementById('result7');
+            resultDiv.innerHTML = `
+                <p><strong>Через 5 дней будет:</strong> ${dayIn5Days}</p>
+                <p><strong>Через 177 дней будет:</strong> ${dayIn177Days}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

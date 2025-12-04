@@ -1,0 +1,716 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа № 4</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .task-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .task-container.active {
+            display: block;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .task-description {
+            background-color: #fff8dc; /* Бежевый фон */
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12; /* Оранжевая полоса */
+            margin-bottom: 15px;
+            font-family: monospace; /* Моноширинный шрифт для кода */
+            white-space: pre-wrap; /* Сохраняем переносы строк */
+        }
+        .task-code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .result-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        p {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа № 4</h1>
+
+        <div class="controls">
+            <button onclick="showTask(1)">Задание 1</button>
+            <button onclick="showTask(2)">Задание 2</button>
+            <button onclick="showTask(3)">Задание 3</button>
+            <button onclick="showTask(4)">Задание 4</button>
+            <button onclick="showTask(5)">Задание 5</button>
+            <button onclick="showTask(6)">Задание 6</button>
+            <button onclick="showTask(7)">Задание 7</button>
+            <button onclick="showTask(8)">Задание 8</button>
+        </div>
+
+        <div id="task1" class="task-container">
+            <h3>Задание 1</h3>
+            <div class="task-description">
+                // Задание 1
+                // Напишите программу на JavaScript, 
+                // чтобы получить список свойств объекта JavaScript.
+                // Образец объекта :
+                //     let student = {
+                //                     name: "David",
+                //                     last_name:"Smirnoff",
+                //                     year"3, // Опечатка, исправлено на year: 3
+                //                     average_mark:95
+                //                     };
+            </div>
+            <div class="task-code">
+                function getProperties(obj) {
+    return Object.keys(obj);
+}
+
+function runTask1() {
+    let student = {
+        name: "David",
+        last_name:"Smirnoff",
+        year: 3, // Исправлено
+        average_mark:95
+    };
+
+    const properties = getProperties(student);
+
+    const resultDiv = document.getElementById('result1');
+    resultDiv.innerHTML = `
+        <p><strong>Объект:</strong> <code>${JSON.stringify(student)}</code></p>
+        <p><strong>Свойства:</strong> <code>[${properties.join(', ')}]</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask1()">Получить свойства</button>
+            <div id="result1" class="result-box"></div>
+        </div>
+
+        <div id="task2" class="task-container">
+            <h3>Задание 2</h3>
+            <div class="task-description">
+                // Задание 2
+                // Создайте три переменнных user, admin, director.
+                //  a. В переменную  user занесите объект с полями name (строка)
+                //     job (строка)  salary (число).
+                //  b. Переменной admin присвойте  объект	  user.
+                //      Измените свойство name объекта admin
+                //      Проверьте, чему равно свойство name объекта user.
+                //  с. Объекту user присвойте null.
+                //     Проверьте, изменился ли объект admin.  
+                //  d. Объекту director присвойте объект admin.
+                //      Увеличьте значение свойство salary на 1000.
+                //      Измените значение свойства job на "boss"
+                //  e.  Объектам admin и director присвойте null.
+                //        Каким стало свойство job объекта director? 
+            </div>
+            <div class="task-code">
+                function runTask2() {
+    let user = {
+        name: "Alice",
+        job: "developer",
+        salary: 50000
+    };
+    let admin = user;
+    admin.name = "Bob";
+
+    let user_name_after_change = user.name;
+
+    user = null;
+    let admin_still_exists = admin !== null;
+    let admin_name = admin.name; // Это всё ещё "Bob", так как admin ссылается на старый объект
+
+    let director = admin;
+    director.salary += 1000;
+    director.job = "boss";
+
+    admin = null;
+    director = null;
+
+    // Теперь director это null, так что director.job вызовет ошибку
+    // Мы можем проверить, является ли он null
+    let director_is_null = director === null;
+
+    const resultDiv = document.getElementById('result2');
+    resultDiv.innerHTML = `
+        <p><strong>Шаг b:</strong> user.name после изменения admin.name: <code>${user_name_after_change}</code> (они ссылаются на один объект)</p>
+        <p><strong>Шаг c:</strong> admin всё ещё существует и не равен null: <code>${admin_still_exists}</code></p>
+        <p><strong>Шаг d:</strong> После присвоения director = admin, изменения в director отражаются в admin.</p>
+        <p><strong>Шаг e:</strong> После присвоения admin и director значения null, переменная director равна null: <code>${director_is_null}</code>. Попытка получить director.job вызовет ошибку.</p>
+    `;
+}
+            </div>
+            <button onclick="runTask2()">Выполнить</button>
+            <div id="result2" class="result-box"></div>
+        </div>
+
+        <div id="task3" class="task-container">
+            <h3>Задание 3</h3>
+            <div class="task-description">
+                // Задание 3
+                // Создайте функцию multNum(obj), 
+                // которая умножает (циклом, а не по отдельности) все числовые 
+                // свойства объекта obj на 2.    
+                // Протестируйте на объекте
+                // let menu = {
+                //    width: 200,
+                //    height: 300,
+                //    depth: 250,
+                //    title: "My cube"
+                //   };
+            </div>
+            <div class="task-code">
+                function multNum(obj) {
+    for (let key in obj) {
+        if (typeof obj[key] === 'number' && !isNaN(obj[key])) {
+            obj[key] *= 2;
+        }
+    }
+}
+
+function runTask3() {
+    let menu = {
+        width: 200,
+        height: 300,
+        depth: 250,
+        title: "My cube"
+    };
+
+    const originalMenu = JSON.stringify(menu);
+    multNum(menu);
+    const updatedMenu = JSON.stringify(menu);
+
+    const resultDiv = document.getElementById('result3');
+    resultDiv.innerHTML = `
+        <p><strong>Исходный объект:</strong> <code>${originalMenu}</code></p>
+        <p><strong>После умножения числовых свойств на 2:</strong> <code>${updatedMenu}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask3()">Выполнить</button>
+            <div id="result3" class="result-box"></div>
+        </div>
+
+        <div id="task4" class="task-container">
+            <h3>Задание 4</h3>
+            <div class="task-description">
+                // Задание 4
+                // Создайте функцию которая, получая на вход
+                // два объекта, проверит есть ли у них общие
+                // свойства и вернёт объект, содержащий те
+                // общие свойства, у которых одинаковые значения.
+                // Тестовые объекты:
+                // obj1={a:1, b:2, c:3, d:4, e:5, str1:"name", str2:"Peter"}    
+                // obj2={z:1, w:2, c:3, d:4, e:5, str1:"family", str2:"Peter"}    
+            </div>
+            <div class="task-code">
+                function findCommonProps(obj1, obj2) {
+    const commonObj = {};
+    for (let key in obj1) {
+        // Проверяем, что свойство есть в обоих объектах и значения равны
+        if (obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
+            commonObj[key] = obj1[key];
+        }
+    }
+    return commonObj;
+}
+
+function runTask4() {
+    const obj1 = {a:1, b:2, c:3, d:4, e:5, str1:"name", str2:"Peter"};
+    const obj2 = {z:1, w:2, c:3, d:4, e:5, str1:"family", str2:"Peter"};
+
+    const common = findCommonProps(obj1, obj2);
+
+    const resultDiv = document.getElementById('result4');
+    resultDiv.innerHTML = `
+        <p><strong>Объект 1:</strong> <code>${JSON.stringify(obj1)}</code></p>
+        <p><strong>Объект 2:</strong> <code>${JSON.stringify(obj2)}</code></p>
+        <p><strong>Общие свойства с одинаковыми значениями:</strong> <code>${JSON.stringify(common)}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask4()">Найти общие свойства</button>
+            <div id="result4" class="result-box"></div>
+        </div>
+
+        <div id="task5" class="task-container">
+            <h3>Задание 5</h3>
+            <div class="task-description">
+                // Задание 5
+                // Напишите функцию JavaScript 
+                // для преобразования объекта в список пар [key, value] 
+                // Тестовый объект создайте сами.
+            </div>
+            <div class="task-code">
+                function objToKeyValuePairs(obj) {
+    return Object.entries(obj);
+}
+
+function runTask5() {
+    const testObj = { name: "John", age: 30, city: "New York" };
+
+    const pairs = objToKeyValuePairs(testObj);
+
+    const resultDiv = document.getElementById('result5');
+    resultDiv.innerHTML = `
+        <p><strong>Объект:</strong> <code>${JSON.stringify(testObj)}</code></p>
+        <p><strong>Пары [ключ, значение]:</strong> <code>${JSON.stringify(pairs)}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask5()">Преобразовать</button>
+            <div id="result5" class="result-box"></div>
+        </div>
+
+        <div id="task6" class="task-container">
+            <h3>Задание 6</h3>
+            <div class="task-description">
+                // Задание 6
+                // Напишите функцию JavaScript которая из исходного
+                // объекта создаст новый, превратив ключи в значения,
+                // а значения-в ключи.
+                // Тестовый объект из задачи 5.
+            </div>
+            <div class="task-code">
+                function swapKeysValues(obj) {
+    const newObj = {};
+    for (let key in obj) {
+        // Проверяем, что значение может быть использовано как ключ
+        // (обычно это строка, число или символ)
+        // Если значение не может быть ключом, результат будет непредсказуемым
+        newObj[obj[key]] = key;
+    }
+    return newObj;
+}
+
+function runTask6() {
+    // Используем объект из задачи 5
+    const testObj = { name: "John", age: 30, city: "New York" };
+
+    const swappedObj = swapKeysValues(testObj);
+
+    const resultDiv = document.getElementById('result6');
+    resultDiv.innerHTML = `
+        <p><strong>Исходный объект:</strong> <code>${JSON.stringify(testObj)}</code></p>
+        <p><strong>Объект с поменянными ключами и значениями:</strong> <code>${JSON.stringify(swappedObj)}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask6()">Поменять местами</button>
+            <div id="result6" class="result-box"></div>
+        </div>
+
+        <div id="task7" class="task-container">
+            <h3>Задание 7</h3>
+            <div class="task-description">
+                // Задание 7
+                // Дан объект 
+                // {js:['jQuery', 'Angular'], php: 'hello', css: 'world'}.
+                // Найти в этом объекте строку 'jQuery' и
+                // присвоить это значение переменной jq.
+            </div>
+            <div class="task-code">
+                function runTask7() {
+    const obj = {js:['jQuery', 'Angular'], php: 'hello', css: 'world'};
+    let jq = null; // Инициализируем переменную
+
+    // Перебираем значения свойств объекта
+    for (let key in obj) {
+        const value = obj[key];
+        // Проверяем, является ли значение массивом
+        if (Array.isArray(value)) {
+            // Ищем 'jQuery' в массиве
+            if (value.includes('jQuery')) {
+                jq = 'jQuery';
+                break; // Нашли, выходим из цикла
+            }
+        } else if (value === 'jQuery') {
+            // Проверяем, если значение не массив, но равно 'jQuery'
+            jq = 'jQuery';
+            break;
+        }
+    }
+
+    const resultDiv = document.getElementById('result7');
+    resultDiv.innerHTML = `
+        <p><strong>Объект:</strong> <code>${JSON.stringify(obj)}</code></p>
+        <p><strong>Найденное значение 'jQuery' присвоено переменной jq:</strong> <code>${jq}</code></p>
+    `;
+}
+            </div>
+            <button onclick="runTask7()">Найти jQuery</button>
+            <div id="result7" class="result-box"></div>
+        </div>
+
+        <div id="task8" class="task-container">
+            <h3>Задание 8</h3>
+            <div class="task-description">
+                // Задание 8
+                // Создайте объект obj1,который в качестве одного
+                // из свойств inner_obj содержит другой  объект obj2.
+                // Выполните глубокое копирование объекта obj1
+                // в объект obj3.
+                // Проверьте, изменяется свойство inner_obj 
+                // в объекте obj3 	после его изменения в объекте obj2.
+            </div>
+            <div class="task-code">
+                function deepClone(obj) {
+    if (obj === null || typeof obj !== "object") {
+        return obj;
+    }
+    if (obj instanceof Date) {
+        return new Date(obj.getTime());
+    }
+    if (obj instanceof Array) {
+        return obj.map(item => deepClone(item));
+    }
+    if (typeof obj === "object") {
+        const clonedObj = {};
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                clonedObj[key] = deepClone(obj[key]);
+            }
+        }
+        return clonedObj;
+    }
+}
+
+function runTask8() {
+    let obj2 = { value: "initial" };
+    let obj1 = { name: "parent", inner_obj: obj2 };
+
+    let obj3 = deepClone(obj1);
+
+    // Изменяем obj2
+    obj2.value = "changed";
+
+    const resultDiv = document.getElementById('result8');
+    resultDiv.innerHTML = `
+        <p><strong>Объект obj1:</strong> <code>${JSON.stringify(obj1)}</code></p>
+        <p><strong>Объект obj3 (глубокая копия obj1):</strong> <code>${JSON.stringify(obj3)}</code></p>
+        <p><strong>Объект obj2 после изменения:</strong> <code>${JSON.stringify(obj2)}</code></p>
+        <p><strong>Свойство inner_obj в obj3 изменилось после изменения obj2:</strong> <code>${obj3.inner_obj.value === 'changed'}</code></p>
+        <p><strong>Вывод:</strong> Глубокая копия работает корректно. Изменение obj2 не повлияло на obj3.inner_obj. Его значение осталось <code>${obj3.inner_obj.value}</code>.</p>
+    `;
+}
+            </div>
+            <button onclick="runTask8()">Выполнить</button>
+            <div id="result8" class="result-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function hideAllTasks() {
+            const containers = document.querySelectorAll('.task-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+        }
+
+        function showTask(taskNumber) {
+            hideAllTasks();
+            const taskElement = document.getElementById('task' + taskNumber);
+            taskElement.classList.add('active');
+            taskElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function getProperties(obj) {
+            return Object.keys(obj);
+        }
+
+        function runTask1() {
+            let student = {
+                name: "David",
+                last_name:"Smirnoff",
+                year: 3,
+                average_mark:95
+            };
+
+            const properties = getProperties(student);
+
+            const resultDiv = document.getElementById('result1');
+            resultDiv.innerHTML = `
+                <p><strong>Объект:</strong> <code>${JSON.stringify(student)}</code></p>
+                <p><strong>Свойства:</strong> <code>[${properties.join(', ')}]</code></p>
+            `;
+        }
+
+        function runTask2() {
+            let user = {
+                name: "Alice",
+                job: "developer",
+                salary: 50000
+            };
+            let admin = user;
+            admin.name = "Bob";
+
+            let user_name_after_change = user.name;
+
+            user = null;
+            let admin_still_exists = admin !== null;
+            let admin_name = admin.name;
+
+            let director = admin;
+            director.salary += 1000;
+            director.job = "boss";
+
+            admin = null;
+            director = null;
+
+            let director_is_null = director === null;
+
+            const resultDiv = document.getElementById('result2');
+            resultDiv.innerHTML = `
+                <p><strong>Шаг b:</strong> user.name после изменения admin.name: <code>${user_name_after_change}</code> (они ссылаются на один объект)</p>
+                <p><strong>Шаг c:</strong> admin всё ещё существует и не равен null: <code>${admin_still_exists}</code></p>
+                <p><strong>Шаг d:</strong> После присвоения director = admin, изменения в director отражаются в admin.</p>
+                <p><strong>Шаг e:</strong> После присвоения admin и director значения null, переменная director равна null: <code>${director_is_null}</code>. Попытка получить director.job вызовет ошибку.</p>
+            `;
+        }
+
+        function multNum(obj) {
+            for (let key in obj) {
+                if (typeof obj[key] === 'number' && !isNaN(obj[key])) {
+                    obj[key] *= 2;
+                }
+            }
+        }
+
+        function runTask3() {
+            let menu = {
+                width: 200,
+                height: 300,
+                depth: 250,
+                title: "My cube"
+            };
+
+            const originalMenu = JSON.stringify(menu);
+            multNum({...menu}); // Передаём копию, чтобы не изменять оригинал в памяти вне этого вызова
+            // Но функция изменяет переданный объект, поэтому вызовем её на оригинале
+            multNum(menu);
+            const updatedMenu = JSON.stringify(menu);
+
+            const resultDiv = document.getElementById('result3');
+            resultDiv.innerHTML = `
+                <p><strong>Исходный объект:</strong> <code>${originalMenu}</code></p>
+                <p><strong>После умножения числовых свойств на 2:</strong> <code>${updatedMenu}</code></p>
+            `;
+        }
+
+        function findCommonProps(obj1, obj2) {
+            const commonObj = {};
+            for (let key in obj1) {
+                if (obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
+                    commonObj[key] = obj1[key];
+                }
+            }
+            return commonObj;
+        }
+
+        function runTask4() {
+            const obj1 = {a:1, b:2, c:3, d:4, e:5, str1:"name", str2:"Peter"};
+            const obj2 = {z:1, w:2, c:3, d:4, e:5, str1:"family", str2:"Peter"};
+
+            const common = findCommonProps(obj1, obj2);
+
+            const resultDiv = document.getElementById('result4');
+            resultDiv.innerHTML = `
+                <p><strong>Объект 1:</strong> <code>${JSON.stringify(obj1)}</code></p>
+                <p><strong>Объект 2:</strong> <code>${JSON.stringify(obj2)}</code></p>
+                <p><strong>Общие свойства с одинаковыми значениями:</strong> <code>${JSON.stringify(common)}</code></p>
+            `;
+        }
+
+        function objToKeyValuePairs(obj) {
+            return Object.entries(obj);
+        }
+
+        function runTask5() {
+            const testObj = { name: "John", age: 30, city: "New York" };
+
+            const pairs = objToKeyValuePairs(testObj);
+
+            const resultDiv = document.getElementById('result5');
+            resultDiv.innerHTML = `
+                <p><strong>Объект:</strong> <code>${JSON.stringify(testObj)}</code></p>
+                <p><strong>Пары [ключ, значение]:</strong> <code>${JSON.stringify(pairs)}</code></p>
+            `;
+        }
+
+        function swapKeysValues(obj) {
+            const newObj = {};
+            for (let key in obj) {
+                newObj[obj[key]] = key;
+            }
+            return newObj;
+        }
+
+        function runTask6() {
+            const testObj = { name: "John", age: 30, city: "New York" };
+
+            const swappedObj = swapKeysValues(testObj);
+
+            const resultDiv = document.getElementById('result6');
+            resultDiv.innerHTML = `
+                <p><strong>Исходный объект:</strong> <code>${JSON.stringify(testObj)}</code></p>
+                <p><strong>Объект с поменянными ключами и значениями:</strong> <code>${JSON.stringify(swappedObj)}</code></p>
+            `;
+        }
+
+        function runTask7() {
+            const obj = {js:['jQuery', 'Angular'], php: 'hello', css: 'world'};
+            let jq = null;
+
+            for (let key in obj) {
+                const value = obj[key];
+                if (Array.isArray(value)) {
+                    if (value.includes('jQuery')) {
+                        jq = 'jQuery';
+                        break;
+                    }
+                } else if (value === 'jQuery') {
+                    jq = 'jQuery';
+                    break;
+                }
+            }
+
+            const resultDiv = document.getElementById('result7');
+            resultDiv.innerHTML = `
+                <p><strong>Объект:</strong> <code>${JSON.stringify(obj)}</code></p>
+                <p><strong>Найденное значение 'jQuery' присвоено переменной jq:</strong> <code>${jq}</code></p>
+            `;
+        }
+
+        function deepClone(obj) {
+            if (obj === null || typeof obj !== "object") {
+                return obj;
+            }
+            if (obj instanceof Date) {
+                return new Date(obj.getTime());
+            }
+            if (obj instanceof Array) {
+                return obj.map(item => deepClone(item));
+            }
+            if (typeof obj === "object") {
+                const clonedObj = {};
+                for (let key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        clonedObj[key] = deepClone(obj[key]);
+                    }
+                }
+                return clonedObj;
+            }
+        }
+
+        function runTask8() {
+            let obj2 = { value: "initial" };
+            let obj1 = { name: "parent", inner_obj: obj2 };
+
+            let obj3 = deepClone(obj1);
+
+            obj2.value = "changed";
+
+            const resultDiv = document.getElementById('result8');
+            resultDiv.innerHTML = `
+                <p><strong>Объект obj1:</strong> <code>${JSON.stringify(obj1)}</code></p>
+                <p><strong>Объект obj3 (глубокая копия obj1):</strong> <code>${JSON.stringify(obj3)}</code></p>
+                <p><strong>Объект obj2 после изменения:</strong> <code>${JSON.stringify(obj2)}</code></p>
+                <p><strong>Свойство inner_obj в obj3 изменилось после изменения obj2:</strong> <code>${obj3.inner_obj.value === 'changed'}</code></p>
+                <p><strong>Вывод:</strong> Глубокая копия работает корректно. Изменение obj2 не повлияло на obj3.inner_obj. Его значение осталось <code>${obj3.inner_obj.value}</code>.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
