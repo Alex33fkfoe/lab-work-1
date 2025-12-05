@@ -70,9 +70,44 @@
             margin: 10px 0;
             border-radius: 4px;
         }
+        /* Стили для информации о сервере */
+        .server-info {
+            background: linear-gradient(135deg, #2c3e50, #4CAF50);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .server-footer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .server-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .server-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <!-- ИНФОРМАЦИЯ О СЕРВЕРЕ ВВЕРХУ -->
+    <div class="server-info">
+        🖥️ <strong>Сервер:</strong> 185.199.108.153 (GitHub Pages) | 
+        ☁️ <strong>Хостинг:</strong> GitHub Pages | 
+        🔒 <strong>Протокол:</strong> HTTPS
+    </div>
+
     <h1>Лабораторная работа - Объекты, Map, Set</h1>
 
     <!-- Задание 1 -->
@@ -295,6 +330,14 @@ function hasPairWithSumSorted(arr, sum) {
         
         <button onclick="runTask7()">Запустить задание 7</button>
         <div id="result7" class="result"></div>
+    </div>
+
+    <!-- ИНФОРМАЦИЯ О СЕРВЕРЕ ВНИЗУ -->
+    <div class="server-footer">
+        <strong>Технические данные сервера:</strong><br>
+        IP-адрес: 185.199.108.153 | Домен: alex33fkfoe.github.io<br>
+        Хостинг: GitHub Pages | Протокол: HTTPS<br>
+        <a href="https://github.com/alex33fkfoe/lab-work-1" target="_blank">Исходный код на GitHub</a>
     </div>
 
     <script>
