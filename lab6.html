@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа - Объекты, Map, Set</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .task {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border-left: 3px solid #4CAF50;
+        }
+        .result {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            border-left: 4px solid #4CAF50;
+        }
+        .output {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .code {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .explanation {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторная работа - Объекты, Map, Set</h1>
+
+    <!-- Задание 1 -->
+    <div class="task">
+        <h2>Задание 1. Символы как ключи объектов</h2>
+        <p>Создайте объект с пятью разными свойствами, два из которых имеют тип Symbol.</p>
+        
+        <div class="code">
+// Создаем два символа
+const sym1 = Symbol('id');
+const sym2 = Symbol('description');
+
+// Создаем объект с разными типами ключей
+const myObject = {
+    name: "Иван",
+    age: 30,
+    [sym1]: 12345,          // Символ как ключ
+    city: "Москва",
+    [sym2]: "Тестовый объект" // Еще один символ
+};
+
+console.log("Объект создан:", myObject);
+        </div>
+        
+        <button onclick="runTask1()">Запустить задание 1</button>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <!-- Задание 2 -->
+    <div class="task">
+        <h2>Задание 2. Map с массивами в качестве ключей</h2>
+        <p>Создайте объект типа Map с массивами в качестве ключей.</p>
+        
+        <div class="code">
+// Создаем Map с массивами как ключами
+const myMap = new Map();
+
+// Создаем массивы для использования как ключи
+const keyArray1 = [1, 2, 3];
+const keyArray2 = ['a', 'b', 'c'];
+const keyArray3 = [true, false];
+
+// Добавляем пары ключ-значение
+myMap.set(keyArray1, "Значение для массива [1, 2, 3]");
+myMap.set(keyArray2, "Значение для массива ['a', 'b', 'c']");
+myMap.set(keyArray3, "Значение для массива [true, false]");
+
+console.log("Map создан:", myMap);
+        </div>
+        
+        <button onclick="runTask2()">Запустить задание 2</button>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <!-- Задание 3 -->
+    <div class="task">
+        <h2>Задание 3. Map с объектом как ключ и преобразование в объект</h2>
+        
+        <div class="code">
+// Создаем Map с объектом в качестве ключа
+const mapWithObject = new Map();
+
+const objKey = { id: 1, name: "ключ-объект" };
+mapWithObject.set(objKey, "Значение для объекта-ключа");
+mapWithObject.set("обычный ключ", "Обычное значение");
+
+// Преобразуем Map в объект с помощью Object.fromEntries()
+const newObject = Object.fromEntries(mapWithObject);
+
+console.log("Map с объектом-ключом:", mapWithObject);
+console.log("Объект из Map:", newObject);
+        </div>
+        
+        <button onclick="runTask3()">Запустить задание 3</button>
+        <div id="result3" class="result"></div>
+    </div>
+
+    <!-- Задание 4 -->
+    <div class="task">
+        <h2>Задание 4. Найти 5 наиболее употребительных языков</h2>
+        
+        <div class="code">
+const languages = [
+    { Swahili: 4 },
+    { Arabic: 25 },
+    { Russian: 9 },
+    { English: 91 },
+    { Portuguese: 9 },
+    { Dutch: 8 },
+    { German: 7 },
+    { French: 45 },
+    { Chinese: 5 },
+    { Spanish: 24 },
+    { Serbian: 4 }
+];
+
+function getTopLanguages(langArray, topCount = 5) {
+    // Преобразуем массив объектов в массив пар [язык, количество]
+    const langEntries = langArray.flatMap(obj => Object.entries(obj)[0]);
+    
+    // Сортируем по количеству (по убыванию)
+    langEntries.sort((a, b) => b[1] - a[1]);
+    
+    // Берем первые topCount элементов
+    return langEntries.slice(0, topCount);
+}
+        </div>
+        
+        <button onclick="runTask4()">Запустить задание 4</button>
+        <div id="result4" class="result"></div>
+    </div>
+
+    <!-- Задание 5 -->
+    <div class="task">
+        <h2>Задание 5. Удаление дубликатов из массива</h2>
+        
+        <div class="code">
+const fruits = ["яблоко", "банан", "апельсин", "яблоко", "груша", "банан", "киви", "груша"];
+
+// Способ 1: используя Set
+const uniqueFruits1 = [...new Set(fruits)];
+
+// Способ 2: используя filter
+const uniqueFruits2 = fruits.filter((item, index) => fruits.indexOf(item) === index);
+
+// Способ 3: используя reduce
+const uniqueFruits3 = fruits.reduce((acc, item) => {
+    if (!acc.includes(item)) {
+        acc.push(item);
+    }
+    return acc;
+}, []);
+
+console.log("Исходный массив:", fruits);
+console.log("Уникальные значения (через Set):", uniqueFruits1);
+        </div>
+        
+        <button onclick="runTask5()">Запустить задание 5</button>
+        <div id="result5" class="result"></div>
+    </div>
+
+    <!-- Задание 6 -->
+    <div class="task">
+        <h2>Задание 6. Удаление анаграмм</h2>
+        
+        <div class="code">
+const words = ["нос", "сон", "снедь", "днесь", "воз", "зов", "киборг", "гробик", "костер", "сектор", "стокер"];
+
+function aclean(arr) {
+    const map = new Map();
+    
+    for (let word of arr) {
+        // Сортируем буквы в слове (приводим к нижнему регистру)
+        const sorted = word.toLowerCase().split('').sort().join('');
+        
+        // Если такой "ключ" еще не встречался, добавляем слово
+        if (!map.has(sorted)) {
+            map.set(sorted, word);
+        }
+    }
+    
+    // Возвращаем массив уникальных слов (не анаграмм)
+    return Array.from(map.values());
+}
+
+console.log("Исходный массив:", words);
+console.log("Очищенный от анаграмм:", aclean(words));
+        </div>
+        
+        <button onclick="runTask6()">Запустить задание 6</button>
+        <div id="result6" class="result"></div>
+    </div>
+
+    <!-- Задание 7 -->
+    <div class="task">
+        <h2>Задание 7. Поиск пары чисел с заданной суммой</h2>
+        
+        <div class="code">
+// Тестовые массивы
+const arrayTrue = [3, 5, 1, 4, 8, 2]; // есть пара 4+5=9
+const arrayFalse = [1, 2, 3, 4, 5];   // нет пары для суммы 10
+
+function hasPairWithSum(arr, sum) {
+    const seen = new Set();
+    
+    for (let num of arr) {
+        const complement = sum - num;
+        
+        if (seen.has(complement)) {
+            return true; // Нашли пару
+        }
+        
+        seen.add(num);
+    }
+    
+    return false; // Пары не нашли
+}
+
+// Альтернативный способ с двумя указателями (для отсортированного массива)
+function hasPairWithSumSorted(arr, sum) {
+    arr.sort((a, b) => a - b);
+    let left = 0;
+    let right = arr.length - 1;
+    
+    while (left < right) {
+        const currentSum = arr[left] + arr[right];
+        
+        if (currentSum === sum) {
+            return true;
+        } else if (currentSum < sum) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    
+    return false;
+}
+        </div>
+        
+        <button onclick="runTask7()">Запустить задание 7</button>
+        <div id="result7" class="result"></div>
+    </div>
+
+    <script>
+        // ========== ЗАДАНИЕ 1 ==========
+        function runTask1() {
+            const resultDiv = document.getElementById('result1');
+            
+            // Создаем два символа
+            const sym1 = Symbol('id');
+            const sym2 = Symbol('description');
+            
+            // Создаем объект с разными типами ключей
+            const myObject = {
+                name: "Иван",
+                age: 30,
+                [sym1]: 12345,
+                city: "Москва",
+                [sym2]: "Тестовый объект"
+            };
+            
+            let output = '<div class="output">Результаты получения ключей:</div>';
+            
+            // 1. Object.keys() - получает только строковые ключи
+            const objectKeys = Object.keys(myObject);
+            output += `<p><strong>Object.keys():</strong> [${objectKeys.join(', ')}]</p>`;
+            
+            // 2. JSON.stringify() - преобразует объект в JSON (символы игнорируются)
+            const jsonString = JSON.stringify(myObject);
+            output += `<p><strong>JSON.stringify():</strong> ${jsonString}</p>`;
+            const jsonKeys = Object.keys(JSON.parse(jsonString || '{}'));
+            output += `<p>Ключи из JSON: [${jsonKeys.join(', ')}]</p>`;
+            
+            // 3. Reflect.ownKeys() - получает все ключи, включая символы
+            const reflectKeys = Reflect.ownKeys(myObject);
+            output += `<p><strong>Reflect.ownKeys():</strong> [${reflectKeys.map(k => 
+                typeof k === 'symbol' ? k.toString() : k
+            ).join(', ')}]</p>`;
+            
+            output += '<div class="explanation">';
+            output += '<p><strong>Объяснение различий:</strong></p>';
+            output += '<ul>';
+            output += '<li><strong>Object.keys()</strong> возвращает только строковые ключи (символы игнорируются)</li>';
+            output += '<li><strong>JSON.stringify()</strong> игнорирует символы при сериализации</li>';
+            output += '<li><strong>Reflect.ownKeys()</strong> возвращает ВСЕ ключи, включая символы</li>';
+            output += '</ul>';
+            output += '<p>Символы в JavaScript предназначены для создания "скрытых" свойств объектов, которые не видны в обычных итерациях.</p>';
+            output += '</div>';
+            
+            // Дополнительно: для демонстрации доступа к значениям символов
+            output += `<p><strong>Доступ к значениям символов:</strong></p>`;
+            output += `<ul>`;
+            output += `<li>${sym1.toString()}: ${myObject[sym1]}</li>`;
+            output += `<li>${sym2.toString()}: ${myObject[sym2]}</li>`;
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 2 ==========
+        function runTask2() {
+            const resultDiv = document.getElementById('result2');
+            
+            // Создаем Map с массивами как ключами
+            const myMap = new Map();
+            
+            // Создаем массивы для использования как ключи
+            const keyArray1 = [1, 2, 3];
+            const keyArray2 = ['a', 'b', 'c'];
+            const keyArray3 = [true, false];
+            
+            // Добавляем пары ключ-значение
+            myMap.set(keyArray1, "Значение для массива [1, 2, 3]");
+            myMap.set(keyArray2, "Значение для массива ['a', 'b', 'c']");
+            myMap.set(keyArray3, "Значение для массива [true, false]");
+            
+            let output = '<div class="output">Map с массивами в качестве ключей:</div>';
+            
+            // Преобразуем Map в массив для удобного отображения
+            output += '<ul>';
+            for (let [key, value] of myMap) {
+                output += `<li>Ключ: ${JSON.stringify(key)} → Значение: "${value}"</li>`;
+            }
+            output += '</ul>';
+            
+            // Демонстрация особенностей Map
+            output += '<div class="explanation">';
+            output += '<p><strong>Особенности Map:</strong></p>';
+            output += '<ul>';
+            output += '<li>Map может использовать любые значения в качестве ключей (включая объекты и массивы)</li>';
+            output += '<li>Ключи в Map сохраняют ссылочное равенство (два одинаковых массива - это разные ключи)</li>';
+            output += '</ul>';
+            
+            // Демонстрация ссылочного равенства
+            const testArray = [1, 2, 3];
+            myMap.set(testArray, "Новое значение для [1, 2, 3]");
+            
+            output += `<p><strong>Демонстрация ссылочного равенства:</strong></p>`;
+            output += `<ul>`;
+            output += `<li>myMap.get([1, 2, 3]): ${myMap.get([1, 2, 3]) || 'undefined'}</li>`;
+            output += `<li>myMap.get(keyArray1): "${myMap.get(keyArray1)}"</li>`;
+            output += `<li>myMap.get(testArray): "${myMap.get(testArray)}"</li>`;
+            output += `<li>[1, 2, 3] === keyArray1: ${[1, 2, 3] === keyArray1}</li>`;
+            output += `<li>testArray === keyArray1: ${testArray === keyArray1}</li>`;
+            output += `</ul>`;
+            output += '</div>';
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 3 ==========
+        function runTask3() {
+            const resultDiv = document.getElementById('result3');
+            
+            // Создаем Map с объектом в качестве ключа
+            const mapWithObject = new Map();
+            
+            const objKey = { id: 1, name: "ключ-объект" };
+            mapWithObject.set(objKey, "Значение для объекта-ключа");
+            mapWithObject.set("обычный ключ", "Обычное значение");
+            mapWithObject.set(42, "Число как ключ");
+            
+            // Преобразуем Map в объект с помощью Object.fromEntries()
+            const newObject = Object.fromEntries(mapWithObject);
+            
+            let output = '<div class="output">Преобразование Map в объект:</div>';
+            
+            output += `<p><strong>Исходный Map:</strong></p>`;
+            output += '<ul>';
+            for (let [key, value] of mapWithObject) {
+                const keyStr = typeof key === 'object' ? JSON.stringify(key) : key.toString();
+                output += `<li>${keyStr} → "${value}"</li>`;
+            }
+            output += '</ul>';
+            
+            output += `<p><strong>Объект после Object.fromEntries():</strong></p>`;
+            output += `<pre>${JSON.stringify(newObject, null, 2)}</pre>`;
+            
+            output += '<div class="explanation">';
+            output += '<p><strong>Важное замечание:</strong></p>';
+            output += '<p>Object.fromEntries() преобразует Map в объект, но при этом:</p>';
+            output += '<ul>';
+            output += '<li>Объекты-ключи преобразуются в строки "[object Object]"</li>';
+            output += '<li>Все ключи объекта становятся строками</li>';
+            output += '<li>Поэтому объект-ключ теряется и его значение "перезаписывает" другие значения</li>';
+            output += '</ul>';
+            output += `<p>В нашем примере: ключ <code>{id: 1, name: "ключ-объект"}</code> становится строкой <code>"[object Object]"</code></p>`;
+            output += '</div>';
+            
+            // Демонстрация потери данных
+            output += `<p><strong>Проверка доступа к данным:</strong></p>`;
+            output += `<ul>`;
+            output += `<li>mapWithObject.get(objKey): "${mapWithObject.get(objKey)}"</li>`;
+            output += `<li>newObject[objKey]: "${newObject[objKey]}"</li>`;
+            output += `<li>newObject["[object Object]"]: "${newObject["[object Object]"]}"</li>`;
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 4 ==========
+        function runTask4() {
+            const resultDiv = document.getElementById('result4');
+            
+            const languages = [
+                { Swahili: 4 },
+                { Arabic: 25 },
+                { Russian: 9 },
+                { English: 91 },
+                { Portuguese: 9 },
+                { Dutch: 8 },
+                { German: 7 },
+                { French: 45 },
+                { Chinese: 5 },
+                { Spanish: 24 },
+                { Serbian: 4 }
+            ];
+            
+            function getTopLanguages(langArray, topCount = 5) {
+                // Преобразуем массив объектов в массив пар [язык, количество]
+                const langEntries = langArray.flatMap(obj => Object.entries(obj)[0]);
+                
+                // Сортируем по количеству (по убыванию)
+                langEntries.sort((a, b) => b[1] - a[1]);
+                
+                // Берем первые topCount элементов
+                return langEntries.slice(0, topCount);
+            }
+            
+            const topLanguages = getTopLanguages(languages, 5);
+            
+            let output = '<div class="output">5 наиболее употребительных языков:</div>';
+            
+            output += '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">';
+            output += '<tr style="background-color: #4CAF50; color: white;">';
+            output += '<th style="padding: 10px; text-align: left;">Место</th>';
+            output += '<th style="padding: 10px; text-align: left;">Язык</th>';
+            output += '<th style="padding: 10px; text-align: left;">Количество говорящих (млн)</th>';
+            output += '</tr>';
+            
+            topLanguages.forEach(([lang, count], index) => {
+                output += `<tr style="${index % 2 === 0 ? 'background-color: #f9f9f9;' : ''}">`;
+                output += `<td style="padding: 10px;">${index + 1}</td>`;
+                output += `<td style="padding: 10px;"><strong>${lang}</strong></td>`;
+                output += `<td style="padding: 10px;">${count}</td>`;
+                output += `</tr>`;
+            });
+            
+            output += '</table>';
+            
+            // Графическое представление
+            output += '<div style="margin-top: 20px; padding: 15px; background-color: #f0f8ff; border-radius: 5px;">';
+            output += '<p><strong>Графическое представление:</strong></p>';
+            output += '<div style="display: flex; align-items: flex-end; height: 200px; margin-top: 10px;">';
+            
+            const maxCount = Math.max(...topLanguages.map(([_, count]) => count));
+            
+            topLanguages.forEach(([lang, count]) => {
+                const height = (count / maxCount) * 150;
+                output += `
+                    <div style="
+                        margin-right: 15px; 
+                        text-align: center;
+                        width: 60px;
+                    ">
+                        <div style="
+                            height: ${height}px;
+                            background-color: #4CAF50;
+                            border-radius: 5px 5px 0 0;
+                        "></div>
+                        <div style="margin-top: 5px; font-size: 12px;">${lang}</div>
+                        <div style="font-size: 11px; color: #666;">${count}</div>
+                    </div>
+                `;
+            });
+            
+            output += '</div>';
+            output += '</div>';
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 5 ==========
+        function runTask5() {
+            const resultDiv = document.getElementById('result5');
+            
+            // Исходный массив с дубликатами
+            const fruits = ["яблоко", "банан", "апельсин", "яблоко", "груша", "банан", "киви", "груша", "яблоко"];
+            
+            // Способ 1: используя Set (самый простой)
+            const uniqueFruits1 = [...new Set(fruits)];
+            
+            // Способ 2: используя filter
+            const uniqueFruits2 = fruits.filter((item, index) => fruits.indexOf(item) === index);
+            
+            // Способ 3: используя reduce
+            const uniqueFruits3 = fruits.reduce((acc, item) => {
+                if (!acc.includes(item)) {
+                    acc.push(item);
+                }
+                return acc;
+            }, []);
+            
+            let output = '<div class="output">Удаление дубликатов из массива:</div>';
+            
+            output += `<p><strong>Исходный массив:</strong> [${fruits.join(', ')}]</p>`;
+            output += `<p>Длина: ${fruits.length} элементов</p>`;
+            
+            output += '<div style="margin: 15px 0;">';
+            output += '<p><strong>Способ 1 (через Set):</strong></p>';
+            output += `<p>Результат: [${uniqueFruits1.join(', ')}]</p>`;
+            output += `<p>Длина: ${uniqueFruits1.length} элементов</p>`;
+            output += `<pre style="background-color: #e9ecef; padding: 10px;">
+const uniqueFruits = [...new Set(fruits)];
+            </pre>`;
+            output += '</div>';
+            
+            output += '<div style="margin: 15px 0;">';
+            output += '<p><strong>Способ 2 (через filter):</strong></p>';
+            output += `<p>Результат: [${uniqueFruits2.join(', ')}]</p>`;
+            output += `<p>Длина: ${uniqueFruits2.length} элементов</p>`;
+            output += `<pre style="background-color: #e9ecef; padding: 10px;">
+const uniqueFruits = fruits.filter((item, index) => 
+    fruits.indexOf(item) === index
+);
+            </pre>`;
+            output += '</div>';
+            
+            output += '<div style="margin: 15px 0;">';
+            output += '<p><strong>Способ 3 (через reduce):</strong></p>';
+            output += `<p>Результат: [${uniqueFruits3.join(', ')}]</p>`;
+            output += `<p>Длина: ${uniqueFruits3.length} элементов</p>`;
+            output += `<pre style="background-color: #e9ecef; padding: 10px;">
+const uniqueFruits = fruits.reduce((acc, item) => {
+    if (!acc.includes(item)) {
+        acc.push(item);
+    }
+    return acc;
+}, []);
+            </pre>`;
+            output += '</div>';
+            
+            output += '<div class="explanation">';
+            output += '<p><strong>Объяснение:</strong></p>';
+            output += '<ul>';
+            output += '<li><strong>Set</strong> - коллекция уникальных значений, самый эффективный способ</li>';
+            output += '<li><strong>filter</strong> - проверяет, является ли текущий индекс первым вхождением элемента</li>';
+            output += '<li><strong>reduce</strong> - накапливает уникальные значения в новом массиве</li>';
+            output += '</ul>';
+            output += '<p>Рекомендуется использовать Set для лучшей производительности.</p>';
+            output += '</div>';
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 6 ==========
+        function runTask6() {
+            const resultDiv = document.getElementById('result6');
+            
+            const words = ["нос", "сон", "снедь", "днесь", "воз", "зов", "киборг", "гробик", "костер", "сектор", "стокер"];
+            
+            function aclean(arr) {
+                const map = new Map();
+                
+                for (let word of arr) {
+                    // Сортируем буквы в слове (приводим к нижнему регистру)
+                    const sorted = word.toLowerCase().split('').sort().join('');
+                    
+                    // Если такой "ключ" еще не встречался, добавляем слово
+                    if (!map.has(sorted)) {
+                        map.set(sorted, word);
+                    }
+                }
+                
+                // Возвращаем массив уникальных слов (не анаграмм)
+                return Array.from(map.values());
+            }
+            
+            const cleanedWords = aclean(words);
+            
+            let output = '<div class="output">Удаление анаграмм:</div>';
+            
+            output += `<p><strong>Исходный массив:</strong></p>`;
+            output += `<p>[${words.join(', ')}]</p>`;
+            
+            // Группируем анаграммы для наглядности
+            const anagramGroups = {};
+            words.forEach(word => {
+                const key = word.toLowerCase().split('').sort().join('');
+                if (!anagramGroups[key]) {
+                    anagramGroups[key] = [];
+                }
+                anagramGroups[key].push(word);
+            });
+            
+            output += `<p><strong>Группы анаграмм:</strong></p>`;
+            output += '<ul>';
+            for (const key in anagramGroups) {
+                if (anagramGroups[key].length > 1) {
+                    output += `<li>${anagramGroups[key].join(', ')} → оставляем: "${anagramGroups[key][0]}"</li>`;
+                }
+            }
+            output += '</ul>';
+            
+            output += `<p><strong>Очищенный массив (без анаграмм):</strong></p>`;
+            output += `<p>[${cleanedWords.join(', ')}]</p>`;
+            
+            output += '<div class="explanation">';
+            output += '<p><strong>Алгоритм работы функции aclean():</strong></p>';
+            output += '<ol>';
+            output += '<li>Для каждого слова создаем "ключ" - отсортированные по алфавиту буквы слова</li>';
+            output += '<li>Используем Map для хранения пар ключ-слово</li>';
+            output += '<li>Если ключ уже есть в Map, пропускаем слово (это анаграмма)</li>';
+            output += '<li>Если ключа нет - добавляем пару ключ-слово в Map</li>';
+            output += '<li>В результате в Map остаются только уникальные ключи (не анаграммы)</li>';
+            output += '</ol>';
+            output += '</div>';
+            
+            // Демонстрация работы с другими данными
+            output += '<div style="margin-top: 20px; padding: 15px; background-color: #f0f8ff;">';
+            output += '<p><strong>Дополнительный пример:</strong></p>';
+            
+            const testWords = ["кот", "ток", "окт", "окот", "кто"];
+            const testResult = aclean(testWords);
+            
+            output += `<p>Исходный массив: [${testWords.join(', ')}]</p>`;
+            output += `<p>Результат: [${testResult.join(', ')}]</p>`;
+            output += '</div>';
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 7 ==========
+        function runTask7() {
+            const resultDiv = document.getElementById('result7');
+            
+            // Тестовые массивы
+            const arrayTrue = [3, 5, 1, 4, 8, 2];
+            const arrayFalse = [1, 2, 3, 4, 5];
+            
+            function hasPairWithSum(arr, sum) {
+                const seen = new Set();
+                
+                for (let num of arr) {
+                    const complement = sum - num;
+                    
+                    if (seen.has(complement)) {
+                        return { result: true, pair: [complement, num] };
+                    }
+                    
+                    seen.add(num);
+                }
+                
+                return { result: false, pair: null };
+            }
+            
+            // Тестируем для суммы 9 (должно быть true для arrayTrue)
+            const test1 = hasPairWithSum(arrayTrue, 9);
+            // Тестируем для суммы 10 (должно быть false для arrayFalse)
+            const test2 = hasPairWithSum(arrayFalse, 10);
+            
+            let output = '<div class="output">Поиск пары чисел с заданной суммой:</div>';
+            
+            output += '<div style="display: flex; gap: 20px; margin-top: 15px;">';
+            
+            // Первый массив (true)
+            output += '<div style="flex: 1; padding: 15px; background-color: #e8f5e9; border-radius: 5px;">';
+            output += `<p><strong>Массив 1 (для true):</strong></p>`;
+            output += `<p>[${arrayTrue.join(', ')}]</p>`;
+            output += `<p>Ищем сумму: 9</p>`;
+            output += `<p>Результат: <span style="color: ${test1.result ? 'green' : 'red'}; font-weight: bold;">${test1.result}</span></p>`;
+            if (test1.result) {
+                output += `<p>Найдена пара: ${test1.pair[0]} + ${test1.pair[1]} = 9</p>`;
+            }
+            output += '</div>';
+            
+            // Второй массив (false)
+            output += '<div style="flex: 1; padding: 15px; background-color: #ffebee; border-radius: 5px;">';
+            output += `<p><strong>Массив 2 (для false):</strong></p>`;
+            output += `<p>[${arrayFalse.join(', ')}]</p>`;
+            output += `<p>Ищем сумму: 10</p>`;
+            output += `<p>Результат: <span style="color: ${test2.result ? 'green' : 'red'}; font-weight: bold;">${test2.result}</span></p>`;
+            if (!test2.result) {
+                output += `<p>Пара с суммой 10 не найдена</p>`;
+            }
+            output += '</div>';
+            
+            output += '</div>';
+            
+            output += '<div class="explanation">';
+            output += '<p><strong>Алгоритм работы функции hasPairWithSum():</strong></p>';
+            output += '<ol>';
+            output += '<li>Создаем Set для хранения уже просмотренных чисел</li>';
+            output += '<li>Для каждого числа в массиве вычисляем complement = sum - текущее_число</li>';
+            output += '<li>Если complement уже есть в Set - нашли пару</li>';
+            output += '<li>Если нет - добавляем текущее число в Set и продолжаем</li>';
+            output += '</ol>';
+            output += `<p><strong>Сложность алгоритма:</strong> O(n) - проходим по массиву один раз</p>`;
+            output += '</div>';
+            
+            // Код функции
+            output += '<div style="margin-top: 15px; padding: 15px; background-color: #f8f8f8;">';
+            output += '<p><strong>Код функции:</strong></p>';
+            output += `<pre style="background-color: #2d2d2d; color: white; padding: 10px;">
+function hasPairWithSum(arr, sum) {
+    const seen = new Set();
+    
+    for (let num of arr) {
+        const complement = sum - num;
+        
+        if (seen.has(complement)) {
+            return true; // Нашли пару
+        }
+        
+        seen.add(num);
+    }
+    
+    return false; // Пары не нашли
+}
+            </pre>`;
+            output += '</div>';
+            
+            // Дополнительные тесты
+            output += '<div style="margin-top: 20px; padding: 15px; background-color: #e3f2fd;">';
+            output += '<p><strong>Дополнительные тесты:</strong></p>';
+            
+            const testCases = [
+                { arr: [1, 2, 3, 9], sum: 8, expected: false },
+                { arr: [1, 2, 4, 4], sum: 8, expected: true },
+                { arr: [], sum: 10, expected: false },
+                { arr: [5], sum: 10, expected: false },
+                { arr: [5, 5], sum: 10, expected: true }
+            ];
+            
+            testCases.forEach((testCase, index) => {
+                const result = hasPairWithSum(testCase.arr, testCase.sum);
+                const passed = result.result === testCase.expected;
+                
+                output += `<div style="margin: 5px 0; padding: 5px; background-color: ${passed ? '#e8f5e9' : '#ffebee'};">
+                    Тест ${index + 1}: [${testCase.arr.join(', ')}], сумма=${testCase.sum}, 
+                    результат=${result.result}, ожидалось=${testCase.expected} 
+                    ${passed ? '✓' : '✗'}
+                </div>`;
+            });
+            
+            output += '</div>';
+            
+            resultDiv.innerHTML = output;
+        }
+    </script>
+</body>
+</html>

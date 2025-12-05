@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №5 - Объекты и this</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .task {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .result {
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .output {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Лабораторная работа №5 - Объекты и this</h1>
+
+    <!-- Задание 1 -->
+    <div class="task" id="task1">
+        <h2>Задание 1. Функция-конструктор</h2>
+        <pre><code>
+// Функция-конструктор с параметром по умолчанию
+function Person(name, age, profession = "unknown") {
+    this.name = name;
+    this.age = age;
+    this.profession = profession;
+}
+        </code></pre>
+        <button onclick="runTask1()">Запустить тесты</button>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <!-- Задание 2 -->
+    <div class="task" id="task2">
+        <h2>Задание 2. Объект-калькулятор</h2>
+        <pre><code>
+const calculator = {
+    a: 0,
+    b: 0,
+    
+    read() {
+        // Для демонстрации используем фиксированные значения
+        this.a = 10;
+        this.b = 5;
+        console.log(`Заданы числа: a = ${this.a}, b = ${this.b}`);
+        return this;
+    },
+    
+    sum() {
+        return this.a + this.b;
+    },
+    
+    mul() {
+        return this.a * this.b;
+    },
+    
+    substr() {
+        return this.a - this.b;
+    },
+    
+    div() {
+        return this.b / this.a;
+    }
+};
+        </code></pre>
+        <button onclick="runTask2()">Запустить калькулятор</button>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <!-- Задание 3 -->
+    <div class="task" id="task3">
+        <h2>Задание 3. Объекты книг</h2>
+        <pre><code>
+// Функция-конструктор для книг
+function Book(title, price) {
+    this.title = title;
+    this.price = price;
+    this.display = function() {
+        return `Книга: "${this.title}", Цена: ${this.price} руб.`;
+    };
+}
+        </code></pre>
+        <button onclick="runTask3()">Создать и показать книги</button>
+        <div id="result3" class="result"></div>
+    </div>
+
+    <!-- Задание 4 -->
+    <div class="task" id="task4">
+        <h2>Задание 4. Лестница с цепочными вызовами</h2>
+        <pre><code>
+const ladder = {
+    step: 0,
+    
+    up() {
+        this.step++;
+        return this; // для цепочных вызовов
+    },
+    
+    down() {
+        if (this.step > 0) { // не позволяем стать отрицательным
+            this.step--;
+        }
+        return this; // для цепочных вызовов
+    },
+    
+    showStep() {
+        console.log(`Текущая ступенька: ${this.step}`);
+        return this; // для цепочных вызовов
+    }
+};
+        </code></pre>
+        <button onclick="runTask4()">Запустить демонстрацию</button>
+        <div id="result4" class="result"></div>
+    </div>
+
+    <!-- Задание 5 -->
+    <div class="task" id="task5">
+        <h2>Задание 5. Сравнение this в обычной и стрелочной функции</h2>
+        <div class="code-columns">
+            <div style="width: 48%; float: left;">
+                <h3>Обычная функция:</h3>
+                <pre><code>
+const call1 = {
+    caller: "mom", 
+    says: function() {
+        return `Hey, ${this.caller} just called.`;
+    }
+};
+// Вызов: call1.says() → "Hey, mom just called."
+                </code></pre>
+            </div>
+            <div style="width: 48%; float: right;">
+                <h3>Стрелочная функция:</h3>
+                <pre><code>
+const call2 = {
+    caller: "mom", 
+    says: () => {
+        return `Hey, ${this.caller} just called.`;
+    }
+};
+// Вызов: call2.says() → "Hey, undefined just called."
+                </code></pre>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <button onclick="runTask5()">Сравнить результаты</button>
+        <div id="result5" class="result"></div>
+    </div>
+
+    <!-- Задание 6 -->
+    <div class="task" id="task6">
+        <h2>Задание 6. Символы и цикл for...in</h2>
+        <pre><code>
+// Создаем уникальный символ
+const unique = Symbol('id');
+
+// Создаем объект со свойствами и символом
+const user = {
+    name: "Иван",
+    age: 30,
+    profession: "инженер",
+    salary: 50000,
+    [unique]: "секретный идентификатор"
+};
+        </code></pre>
+        <button onclick="runTask6()">Запустить проверку</button>
+        <div id="result6" class="result"></div>
+    </div>
+
+    <script>
+        // ========== ЗАДАНИЕ 1 ==========
+        function Person(name, age, profession = "unknown") {
+            this.name = name;
+            this.age = age;
+            this.profession = profession;
+        }
+
+        function runTask1() {
+            const resultDiv = document.getElementById('result1');
+            let output = '<div class="output">Результаты тестов:</div><ul>';
+            
+            // Тест 1: без параметра profession
+            const person1 = new Person("Анна", 25);
+            output += `<li>Без profession: ${person1.name}, ${person1.age}, ${person1.profession}</li>`;
+            
+            // Тест 2: с NaN
+            const person2 = new Person("Борис", 30, NaN);
+            output += `<li>С profession = NaN: ${person2.name}, ${person2.age}, ${person2.profession}</li>`;
+            
+            // Тест 3: с false
+            const person3 = new Person("Виктор", 35, false);
+            output += `<li>С profession = false: ${person3.name}, ${person3.age}, ${person3.profession}</li>`;
+            
+            // Тест 4: с null
+            const person4 = new Person("Галина", 28, null);
+            output += `<li>С profession = null: ${person4.name}, ${person4.age}, ${person4.profession}</li>`;
+            
+            // Тест 5: с undefined (должен использовать значение по умолчанию)
+            const person5 = new Person("Дмитрий", 32, undefined);
+            output += `<li>С profession = undefined: ${person5.name}, ${person5.age}, ${person5.profession}</li>`;
+            
+            output += '</ul>';
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 2 ==========
+        const calculator = {
+            a: 0,
+            b: 0,
+            
+            read() {
+                // В реальном приложении здесь был бы prompt или input
+                this.a = 10;
+                this.b = 5;
+                console.log(`Заданы числа: a = ${this.a}, b = ${this.b}`);
+                return this;
+            },
+            
+            sum() {
+                return this.a + this.b;
+            },
+            
+            mul() {
+                return this.a * this.b;
+            },
+            
+            substr() {
+                return this.a - this.b;
+            },
+            
+            div() {
+                return this.b / this.a;
+            }
+        };
+
+        function runTask2() {
+            const resultDiv = document.getElementById('result2');
+            calculator.read();
+            
+            let output = '<div class="output">Результаты работы калькулятора:</div>';
+            output += `<p>Числа: ${calculator.a} и ${calculator.b}</p>`;
+            output += `<ul>`;
+            output += `<li>Сумма: ${calculator.sum()}</li>`;
+            output += `<li>Произведение: ${calculator.mul()}</li>`;
+            output += `<li>Разность (a - b): ${calculator.substr()}</li>`;
+            output += `<li>Деление (b / a): ${calculator.div()}</li>`;
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 3 ==========
+        function Book(title, price) {
+            this.title = title;
+            this.price = price;
+            this.display = function() {
+                return `Книга: "${this.title}", Цена: ${this.price} руб.`;
+            };
+        }
+
+        function runTask3() {
+            const resultDiv = document.getElementById('result3');
+            
+            // Создаем три разные книги
+            const book1 = new Book("JavaScript для начинающих", 1500);
+            const book2 = new Book("React в действии", 2200);
+            const book3 = new Book("Алгоритмы и структуры данных", 1800);
+            
+            let output = '<div class="output">Созданные книги:</div>';
+            output += `<ul>`;
+            output += `<li>${book1.display()}</li>`;
+            output += `<li>${book2.display()}</li>`;
+            output += `<li>${book3.display()}</li>`;
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 4 ==========
+        const ladder = {
+            step: 0,
+            
+            up() {
+                this.step++;
+                return this; // для цепочных вызовов
+            },
+            
+            down() {
+                if (this.step > 0) { // не позволяем стать отрицательным
+                    this.step--;
+                }
+                return this; // для цепочных вызовов
+            },
+            
+            showStep() {
+                console.log(`Текущая ступенька: ${this.step}`);
+                return this; // для цепочных вызовов
+            }
+        };
+
+        function runTask4() {
+            const resultDiv = document.getElementById('result4');
+            let output = '<div class="output">Демонстрация работы лестницы:</div>';
+            
+            output += `<p>1. Обычные вызовы:</p>`;
+            ladder.step = 0;
+            ladder.up();
+            ladder.up();
+            ladder.down();
+            output += `<p>После ladder.up(); ladder.up(); ladder.down(); → Текущая ступенька: ${ladder.step}</p>`;
+            
+            output += `<p>2. Цепочные вызовы:</p>`;
+            ladder.step = 0;
+            // Цепочка вызовов как в задании
+            const finalStep1 = ladder.up().up().down().showStep().step;
+            output += `<p>ladder.up().up().down().showStep() → Текущая ступенька: ${finalStep1}</p>`;
+            
+            output += `<p>3. Проверка отрицательных значений:</p>`;
+            ladder.step = 0;
+            ladder.down().down().down(); // Не должно стать отрицательным
+            output += `<p>После ladder.down().down().down() → Текущая ступенька: ${ladder.step} (осталось 0)</p>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 5 ==========
+        function runTask5() {
+            const resultDiv = document.getElementById('result5');
+            let output = '<div class="output">Сравнение this в обычной и стрелочной функциях:</div>';
+            
+            // Обычная функция
+            const call1 = {
+                caller: "mom", 
+                says: function() {
+                    return `Hey, ${this.caller} just called.`;
+                }
+            };
+            
+            // Стрелочная функция
+            const call2 = {
+                caller: "mom", 
+                says: () => {
+                    return `Hey, ${this.caller} just called.`;
+                }
+            };
+            
+            output += `<p><strong>Обычная функция:</strong> ${call1.says()}</p>`;
+            output += `<p><strong>Стрелочная функция:</strong> ${call2.says()}</p>`;
+            
+            output += `<p><strong>Объяснение:</strong></p>`;
+            output += `<ul>`;
+            output += `<li>В обычной функции this ссылается на объект, в котором она определена (call1)</li>`;
+            output += `<li>В стрелочной функции this наследуется из внешнего контекста (глобального объекта или undefined в строгом режиме)</li>`;
+            output += `<li>Поэтому в стрелочной функции this.caller равно undefined</li>`;
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+
+        // ========== ЗАДАНИЕ 6 ==========
+        function runTask6() {
+            const resultDiv = document.getElementById('result6');
+            let output = '<div class="output">Работа с символами:</div>';
+            
+            // Создаем уникальный символ
+            const unique = Symbol('id');
+            
+            // Создаем объект со свойствами и символом
+            const user = {
+                name: "Иван",
+                age: 30,
+                profession: "инженер",
+                salary: 50000,
+                [unique]: "секретный идентификатор 12345"
+            };
+            
+            output += `<p>Создан объект user со свойствами: name, age, profession, salary и символом unique</p>`;
+            
+            output += `<p><strong>Результат цикла for...in:</strong></p>`;
+            output += `<ul>`;
+            for (let key in user) {
+                output += `<li>${key}: ${user[key]}</li>`;
+            }
+            output += `</ul>`;
+            
+            output += `<p>Как видно, символ <strong>не появляется</strong> в цикле for...in</p>`;
+            
+            output += `<p><strong>Доступ к символу через Object.getOwnPropertySymbols():</strong></p>`;
+            const symbols = Object.getOwnPropertySymbols(user);
+            output += `<ul>`;
+            symbols.forEach(symbol => {
+                output += `<li>${symbol.toString()}: ${user[symbol]}</li>`;
+            });
+            output += `</ul>`;
+            
+            resultDiv.innerHTML = output;
+        }
+    </script>
+</body>
+</html>
